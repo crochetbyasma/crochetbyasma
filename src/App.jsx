@@ -500,6 +500,61 @@ const initialSettings = {
   shippingCompanies: { aramex: false, smsa: false, local: true },
 };
 
+/* نصوص الموقع — كلها قابلة للتعديل من لوحة التحكم (تبويب نصوص الموقع)
+   رموز التنسيق: *كلمة* = تظليل · ~كلمة~ = خط يد بلون الخوخي · | = سطر جديد */
+const initialTexts = {
+  announce: "🚚 شحن مجاني للطلبات فوق {المبلغ} · توصيل لجميع مدن المملكة 🤍",
+  heroBadge1: "♡ صُنع بحب — كل غرزة لأجلك",
+  heroBadge2: "📍 صنع في الرياض",
+  heroTitle: "هنا ~الخيوط * تتحوّل حكايات",
+  heroSub: "كون صغير من الكروشيه والمطبوعات والقطع ثلاثية الأبعاد — كل قطعة تُصنع *خصيصًا لكِ* باسمك ومناسبتك.",
+  heroCtaShop: "تسوقي الكون",
+  heroCtaCustom: "ابدئي طلبًا مخصصًا",
+  heroScrollCue: "اسحبي لتدخلي العالم",
+  marquee1: "كروشيه · مطبوعات · طباعة ثلاثية الأبعاد · توزيعات · هدايا بالاسم · صنع في الرياض",
+  catsEyebrow: "✳ الكون الصغير",
+  catsTitle: "اختاري *عالمك*",
+  featEyebrow: "♡ قطع تُقتنى",
+  featTitle: "مختارات هذا الموسم",
+  featLink: "عرض الكل",
+  customEyebrow: "✎ الطلب المخصص",
+  customTitle: "احكي لنا ~فكرتك~،|ونحن *نحيكها* واقعًا",
+  customSub: "اسم مولود، عبارة تخرج، توزيعات بمئة قطعة، أو صورة من خيالك — أرسليها لنا وشاهديها تتحول قطعةً تلمسينها.",
+  customCta: "ابدئي الحكاية ←",
+  builderEyebrow: "☞ جربي بنفسك",
+  builderTitle: "ابني هديتك في ثوانٍ",
+  builderSub: "اختاري المناسبة وشاهدي كيف تتغير الفكرة — ثم أكملي التفاصيل في معالج الطلب.",
+  marquee2: "من أعمالنا · ٤٠٠+ طلب منفذ · لكل مدن المملكة · قطع لا تتكرر",
+  galEyebrow: "❋ من الأرشيف",
+  galTitle: "معرضنا *الصغير*",
+  galLink: "كل الأعمال ←",
+  galHint: "اسحبي يمينًا ويسارًا ✋",
+  revEyebrow: "✉ رسائل وصلتنا",
+  revTitle: "يقولون عنا",
+  rev1Name: "أم فيصل — الرياض",
+  rev1Text: "الدمية أجمل من الصور، بنتي ما تفارقها 🥹",
+  rev2Name: "أبرار — جدة",
+  rev2Text: "طلبت توزيعات التخرج متأخرة وقبلوا طلبي المستعجل. أنقذوني!",
+  rev3Name: "أم لمار — الدمام",
+  rev3Text: "الاسم ثلاثي الأبعاد طلع مطابق للتصميم اللي وافقت عليه بالضبط.",
+  finaleTitle: "مناسبتك القادمة تستحق|*قطعة لا تتكرر*",
+  finaleCta: "ابدئي طلبك 🎀",
+  finaleWhats: "💬 كلمينا واتساب",
+  footerTagline: "قطع يدوية مخصصة لمناسباتك — صنع في الرياض 📍 جميع الأسعار تشمل الضريبة.",
+  footerHand: "من خيوطٍ صُنعت… وبالحب مُلئت ♡",
+  footerThanks: "♡ شكرًا لدعمك المنتجات اليدوية — كل غرزة صُنعت خصيصًا لكِ ♡",
+  aboutTitle: "عن كروشيه أسماء",
+  aboutIntro: "كروشيه، مطبوعات، وقطع ثلاثية الأبعاد — تُصنع بحب في الرياض، وتصل مخصصةً باسمك ومناسبتك إلى كل مدن المملكة.",
+  aboutCard1Title: "🧶 يدوي 100%",
+  aboutCard1Text: "كل قطعة تُصنع وتُجهز يدويًا بعناية، وليست إنتاجًا تجاريًا بالجملة.",
+  aboutCard2Title: "🎀 مخصص لكِ",
+  aboutCard2Text: "الاسم، العبارة، المناسبة، الكمية — كل التفاصيل تُنفذ حسب طلبك.",
+  aboutCard3Title: "✨ قطع فريدة",
+  aboutCard3Text: "لأنها مصنوعة يدويًا، قد تختلف كل قطعة قليلًا عن غيرها — وهذا سر جمالها.",
+  contactTitle: "تواصلي معنا",
+  contactIntro: "أسرع طريقة للرد هي واتساب — عادة نرد خلال ساعات العمل من السبت إلى الخميس.",
+};
+
 const initialNotifications = [
   { id: "n1", at: "2026-07-01", text: "طلب جديد ORD-1043 بانتظار المراجعة", read: false },
   { id: "n2", at: "2026-07-01", text: "سلة متروكة: عميلة أضافت 3 منتجات ولم تُكمل الدفع", read: false },
@@ -699,6 +754,36 @@ const KineticTitle = ({ text, className = "display" }) => (
   </h1>
 );
 
+/* يعرض نصًا قابلًا للتعديل من لوحة التحكم مع رموز التنسيق:
+   *كلمة* = تظليل (أو خط مرسوم عند hl="doodle") · ~كلمة~ = خط يد خوخي · | = سطر جديد */
+function Rich({ text = "", hl = "mark" }) {
+  return text.split("|").map((line, li, lines) => (
+    <React.Fragment key={li}>
+      {line.split(/(\*[^*]+\*|~[^~]+~)/g).map((part, i) => {
+        if (part.startsWith("*") && part.endsWith("*")) {
+          const inner = part.slice(1, -1);
+          return hl === "doodle"
+            ? <span key={i} className="hl-doodle"> {inner}<DoodleUnderline /></span>
+            : <span key={i} className="mark">{inner}</span>;
+        }
+        if (part.startsWith("~") && part.endsWith("~"))
+          return <span key={i} className="hand" style={{ color: "var(--peach)" }}>{part.slice(1, -1)}</span>;
+        return part;
+      })}
+      {li < lines.length - 1 && <br />}
+    </React.Fragment>
+  ));
+}
+
+/* شريط متحرك: العبارات مفصولة بـ · وتُوضع بينها أيقونات بالتناوب */
+const MarqueeText = ({ text = "", icons = ["✿", "★"] }) => (
+  <>
+    {text.split("·").map((s, i) => (
+      <React.Fragment key={i}>{s.trim()} <i>{icons[i % icons.length]}</i> </React.Fragment>
+    ))}
+  </>
+);
+
 /* الشعار الرسمي — فيكتور أصلي من ملفات الهوية (منظف ومضغوط) */
 const LOGO_ICON_BODY = `<g> <path fill="var(--lg-tealD,#688888)" d="M971.2,782c-8.4-2.5-10.2-12.2-8.1-19.7,1.7-6,8.6-11.8,16.4-10.9s14.6,10.3,13.8,17.6c-1.2,11.1-10.2,16.7-22.1,13.1Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M1008.5,722.2c-6.8-3.3-7.4-14.4-3.3-20.1s13-6.7,18.7-2.7c5.3,3.7,6.5,11.2,3.2,17.7s-10.3,9.1-18.7,5.1Z"/> <g> <path fill="var(--lg-ink,#3a3934)" d="M864.8,791.7c-36.2,24.6-77.1,40.4-121.4,47.5l-38.1,30.9c11.6,6.8,23.5,8.2,35.5,10.2,66.2,11.2,137.4-25.1,186.2-71.8,3.6-3.4,10.8-1.5,12.7,1.3s3.1,8.1,0,11.2c-65.8,65.3-166.9,106.1-253,60.3-56.7,30.9-121.4,33.8-172.7-9.4-50.9,15.4-103.5,4.4-143.4-32.6l-51.1,56c-9.6,9.8-19.1,19.6-32.1,23.9-11.8,2.7-22.9,1.4-31.7-6.3-7.5-6.6-11.6-17.2-9.8-29,1.9-12.7,9.1-22.9,17.5-32.5l56.5-64.8c-80-20-123.1-85.5-120.4-163.5-70-61.8-81.7-156.7-23.7-228.8-20.6-84.2,21.2-167.8,102.2-193.9,29.8-74.9,92-126.3,173.8-112.6,42.8-39.7,94.6-62.7,152.3-55,26.9,3.6,50.2,15.1,70.3,33.4,80.8-11.7,153.7,17.2,182.1,94.2,6.2,4,11.5,7.2,18.9,7.6l60.4-66.2c4.7-5.1,9.3-9.1,11-17l-24.4,13.4c-4.9,2.7-10.6,3.8-15.2,1.2-32.5-18.7,20.9-93.8,91.4-99.3,19.2-1.5,37.2,8.4,43.2,25.8,10.7,30.8-17.8,76.2-40,101.4l-79.4,90.1c56.5,38.2,85.1,94.7,74.3,161.7,44,65.2,49.3,139.2,2.8,204.2,0,23-.6,44.7-7.8,67.2-15.7,49-50,90.2-95.5,114.1-8.4,4.4-15,6.3-20.3,15-2.5,4.2-9.7,7.5-10.8,12ZM927.9,56.8c-5.8,6.9-12.4,13-12.4,24.1l29.2-14.5c5.4-2.7,12.5-1.8,17.4,1.8,9.7,7.2,5.6,23.9-5.3,36.8l-123.5,133.3c12,4.6,21.8,10.2,27.4,22.7l119.4-134.9c19.6-22.1,47.5-60.4,46.4-86.5-.4-10.7-7-18.5-16.8-20.3-28.7-5.1-62.8,14.5-81.9,37.3ZM441.5,125.7c-22.4,26.2-38.6,56.3-51.1,90.2,14.9,2.4,28.5-1,42.4-5.3,31.3-9.7,57.5-28.1,81.5-49.9l31.8-29c30.5-27.8,64.9-47.6,106-59.6-16.1-13.3-34.1-19.2-53.1-21.4-63.3-7.2-117.1,27.9-157.5,75.1ZM594.7,118.9c-19.6,5.5-33.7,25.8-51.7,39.9,28,10.2,55.7,10.8,83.5,4.9l68.6-14.5c46.1-9.8,91.3-8.3,138.7,4.3-15.9-34.2-47.1-57.5-80.2-65.2-54.3-14.8-113.5,0-158.8,30.7ZM382.5,112.3c-43.2,16.6-71.6,53.6-88.4,96.7s-24.1,96.3-15,147.7c33.9-21.9,57.1-53.2,73.4-88.5l19-52c15-41,34.8-77.8,63.9-111.8-20.4-3.9-36.7,1.7-53,7.9ZM726.3,211.7c19.4,9.7,39.4,15.8,60.8,19.7,8.6,2.3,17.1,4,26,3.6l47.9-52.3c-58.8-26.1-122.7-27.8-184.5-10.6,14.6,18.1,31.1,30.3,49.8,39.6ZM407.4,689.8l196.1-216.9,45.6-70.3c25.6-39.3,57.1-71.5,93.5-100.7,18.6-14.9,35.3-29.9,51.8-47.8-4.6-5.2-9.8-5.1-15.3-6-46-8.2-86.6-29.4-117-64.8-3.6-4.2-8.1-6.9-14.1-5.4-40.6,9.8-81.1,9.2-121.4-3.3-39.4,36.4-82.8,59.1-135.7,60.5-5.5.1-8.6,4.4-10.1,9.2-15.9,52.3-47.3,96.8-92.2,127.9-5.1,3.6-6,8.1-4.7,14,10.6,48.7,8.2,97.2-7,144.2l45.4,51.2c19,25.4,30.6,54.4,37.7,85.2,1.2,5.1,3.9,8.4,9,10.1l38.2,12.7ZM240.5,240.7c-38.4,31.1-57.3,81.5-50.6,131,3.3,24.8,10.7,46.9,21,69.1,12.3,26.8,28.8,51.2,51.3,74.5,13.5-36.4,13.7-74.2,7.4-111.5l-10.8-64.2c-4-38.6-.5-76.4,11.1-115-11.7,2.8-20.4,8.8-29.3,16ZM980.4,359.1c4-30.9-6.4-57.2-20.7-80.4-13.2-19.8-29.1-35.8-50.4-47.7l-39.5,46.8c43.4,19.6,78.3,46.7,110.6,81.4ZM650.1,507c20.7-18.7,44.6-34,64.2-55.3,28-30.5,50.3-63.8,73.3-98,17.9-26.6,37.8-49.7,58.7-74.5,2.7-5.7-3.4-15.1-7.1-18.7-5.2-5.1-13.5-6.9-21.4-5.3-20.8,22.5-41.8,42.8-66,61.9-38.1,30.2-70.1,65.2-96,106.4l-36.3,57.8-98.1,108-245.8,274.2c-12,13.4-16.7,29.9-7,36.5,14.7,10.1,30.6-8.7,45-24.5l92.9-101.7,229.4-254.1,14.1-12.8ZM866.1,352.6c6.6,17.6,16,33,28.7,47l38.8,42.9c29.2,33,49.9,69.8,61.2,115.1,37.6-64.5,18.3-136.3-29.6-189.4-28.7-30.9-62.2-55.8-100.7-73.6-17.9-8.3-8,32.1,1.6,57.9ZM776.1,812.9c35.1-8.8,68.1-26.5,93.7-53.7,22.4-23.9,33.5-54.6,38.2-85.7v-2.3s.3-6.5.3-6.5c.9-19.8,2.7-47.6-9.1-60.8,1.2-9.1-.8-17.8-4.5-27.3-18.9-48.9-20.3-101.1-.5-151-16.2-17.7-30.5-35.5-40.8-56.9-7.7-16.1-10.5-32.1-15.7-51.4-23,27.3-42,55.4-61.8,84.8-32.9,48.9-72.6,90.3-121.6,123.5l-181.9,201.2c17.4,10.5,29.4,22.4,42.2,35.7,43.7-6.3,86.6-.8,124.6,21.1,21.6-11.1,44.4-9.9,64,3l40.3,34.6,32.5-8.2ZM166.1,445.7c-21.2,55.1-4.9,117,37.7,156.8,38.3,35.8,86.6,55.3,138.7,67.2-8.4-40.5-27.9-74.4-55.6-103.3-19.2-20-38.4-37.9-55.6-59.8-21.2-27.1-37.7-55.4-49.1-89.4-7.5,8.9-12.1,18-16.1,28.5ZM897.6,498.3c-.1,21.9,3.7,42.3,10.5,63.1l8.7,26.6c11.3,34.6,13.9,71.1,5.1,106.5l-13.2,40.1c13.2-7.5,22.3-16.8,31.2-27.2,71.5-83.7,43.3-191.5-31.9-266.5-7.7,19.7-10.3,38.1-10.4,57.3ZM226.1,682.9c13.9,38.5,42.6,67.4,81.5,80.9,9.2,3.2,18.2,6.6,28.7,5.8l57.8-64.7c-24-10.6-48.4-15.6-73.6-22.3-36.5-9.6-70.2-22.9-102.5-45.5-1.5,16.8,2.9,31.2,8.2,45.8ZM492.5,766c-9.4-11-20.3-19.6-33.8-24.7l-30.4,34.5,64.2-9.8ZM432,854.9c35.9,12.2,71.4,4.1,104.7-12.2,15.4-7.5,29.5-16.3,44.2-25.9l37.2-24.4c-31.8-14.8-65.1-18.4-98-12.6l-75.9,13.4-33.3,3.4c-11.2,7.9-19,19.7-27.8,30.2,15,13.9,31,22.1,48.8,28.1ZM593.5,886c27.7,2.3,54.3-5.9,79.5-18.3,19.5-9.7,37.3-21.6,53.2-38.5-25-23.8-45.4-44.6-77.9-30-40.4,16.5-71.7,47.3-115.1,65.3,18,14,39.2,19.8,60.3,21.5Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M864.8,791.7c-.9,3.5-1.7,5.6-4.4,8.8-18.7,22.3-40.3,41.6-66,55.5-15,8.1-28.7,17.1-45.7,20.9-3.2.7-6.6.4-8,3.4-11.9-2-23.8-3.4-35.5-10.2l38.1-30.9c44.3-7.1,85.3-22.9,121.4-47.5Z"/> <path fill="var(--lg-peach,#f7d3b4)" d="M787.6,353.7c-9.6,4.7-20.7,11.4-23.8,22-13.9,11.5-24.3,25.6-35.6,39.4l-11.8,14.5-50.7,52.4c-7.3,7.5-15.4,14.7-15.6,25l-14.1,12.8-229.4,254.1-92.9,101.7c-14.4,15.7-30.3,34.6-45,24.5-9.7-6.7-5.1-23.1,7-36.5l245.8-274.2,98.1-108,36.3-57.8c25.9-41.2,57.9-76.2,96-106.4,24.2-19.2,45.2-39.4,66-61.9,7.9-1.6,16.2.2,21.4,5.3,3.7,3.6,9.8,13,7.1,18.7-20.9,24.8-40.8,48-58.7,74.5Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M203.8,602.6l-5.3-12.8c-8.3-16.6-15.6-32.3-20.9-50.1-5-16.7-10-32.9-10.2-50.9l-1.3-43.1c4-10.4,8.5-19.6,16.1-28.5,11.4,34,27.8,62.3,49.1,89.4,17.2,21.9,36.4,39.8,55.6,59.8,27.7,28.9,47.2,62.8,55.6,103.3-52.1-12-100.4-31.5-138.7-67.2Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M441.5,125.7c-.8,1,.6,3.1,1.1,2.7l2.6-2.7c4.4-4.6,10.1-7.2,14.6-11.5,15-14.2,30.8-25.6,49.6-33.7l43.8-18.7,14.6-3.3,31.2-7.8c19.1,2.2,37,8.1,53.1,21.4-41,12-75.4,31.8-106,59.6l-31.8,29c-24,21.9-50.3,40.2-81.5,49.9s-27.5,7.7-42.4,5.3c12.6-33.9,28.7-63.9,51.1-90.2Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M894.8,399.6c1.6,0,2.3-1.9,1.6-3.3l-18.9-39.3-11.4-4.5c-9.7-25.8-19.5-66.2-1.6-57.9,38.5,17.8,72,42.6,100.7,73.6,48,53.1,67.2,124.9,29.6,189.4-11.3-45.3-32-82.1-61.2-115.1l-38.8-42.9Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M294.1,209c.5.8,1.9,2.2,2.5,1.8s.9-2.1,1.4-2.8l27.1-40,11.8-12.1c12.9-16.6,27.8-29.8,45.8-40.8,1.2-.2,1.1-2.1-.2-2.8,16.3-6.3,32.6-11.8,53-7.9-29.1,33.9-48.8,70.7-63.9,111.8l-19,52c-16.3,35.2-39.6,66.6-73.4,88.5-9.2-51.4-3.2-101.2,15-147.7Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M210.8,440.8c-11.4-74.2-16.5-107.6,19.1-177.5l10.5-22.6c8.9-7.2,17.6-13.2,29.3-16-11.6,38.6-15.1,76.3-11.1,115l10.8,64.2c6.3,37.3,6.2,75.1-7.4,111.5-22.5-23.4-39-47.8-51.3-74.5Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M594.7,118.9l63.3-17.7c31.5-10.1,61.5-13.4,95.5-13,33.2,7.7,64.4,31,80.2,65.2-47.3-12.6-92.5-14.1-138.7-4.3l-68.6,14.5c-27.8,5.9-55.5,5.3-83.5-4.9,18-14,32.1-34.4,51.7-39.9Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M939.9,707.4c-12.9-1.5-12.9-11.1-18-12.9,8.8-35.4,6.1-72-5.1-106.5,2.4.3,2.6-1.7,1.9-3.4-.9-18-5.8-34.1-8.5-51.5l-5.2-33.4c-2.9-.8-5.2-.6-7.3-1.4,0-19.3,2.7-37.7,10.4-57.3,75.2,74.9,103.4,182.7,31.9,266.5Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M536.7,842.8c.4-2.4-.3-4.5-1.3-4.6-8.2-.9-35.9,11.9-67.5,14.1-12.2.8-24.2-1.2-35.9,2.7-17.8-6.1-33.8-14.3-48.8-28.1,8.8-10.5,16.6-22.3,27.8-30.2l33.3-3.4,75.9-13.4c32.9-5.8,66.2-2.2,98,12.6l-37.2,24.4c-14.7,9.6-28.8,18.4-44.2,25.9Z"/> <path fill="var(--lg-peach,#f7d3b4)" d="M927.9,56.8l15.3-4.3,17.2-9c9.5-8.8,19.4-12.9,32-17.5l17.4-6.5c9.7,1.7,16.3,9.5,16.8,20.3,1.1,26.1-26.9,64.4-46.4,86.5l-119.4,134.9c-5.6-12.5-15.4-18.1-27.4-22.7l123.5-133.3c10.9-12.9,15-29.6,5.3-36.8s-12.1-4.5-17.4-1.8l-29.2,14.5c0-11.1,6.6-17.2,12.4-24.1Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M307.6,763.8c.4-3.9-2.8-8.2-7.1-10.3-9.2-4.4-15.3-11.2-23-17.4-17-13.8-31.1-29.7-43.8-47.4-2-2.8-4.4-4.9-7.5-5.8-5.3-14.6-9.7-29-8.2-45.8,32.3,22.7,65.9,35.9,102.5,45.5,25.2,6.6,49.6,11.6,73.6,22.3l-57.8,64.7c-10.5.9-19.5-2.6-28.7-5.8Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M672.9,867.6l-7-6.1c-24.2,9.3-48.3,17-72.4,24.4-21.1-1.7-42.3-7.5-60.3-21.5,43.4-18,74.6-48.8,115.1-65.3,32.6-14.5,52.9,6.2,77.9,30-15.9,16.9-33.7,28.8-53.2,38.5Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M787.1,231.3c.9-1.5.3-2.1-1.6-2.9-18-7.8-35.6-14.1-54.7-18.6-1.5-.4-3.4.4-4.6,1.8-18.7-9.3-35.2-21.5-49.8-39.6,61.7-17.2,125.7-15.5,184.5,10.6l-47.9,52.3c-8.9.4-17.4-1.4-26-3.6Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M980.4,359.1c-32.3-34.6-67.2-61.7-110.6-81.4l39.5-46.8c21.3,11.9,37.2,27.9,50.4,47.7,14.3,23.3,24.7,49.5,20.7,80.4Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M893.5,648.7c-.8,6.5.6,12.6,3.4,20.4,4.5-3.1,7.5-4.4,11.5-4.5l-.3,6.5v2.3c-4.8,31.1-15.8,61.7-38.3,85.7-25.5,27.2-58.5,44.9-93.7,53.7-.6-3.5,1.9-3.3,4.6-5.1,53.3-37.1,92-91.5,109.2-154.3.9-3.3.7-4.4,3.5-4.7Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M240.5,240.7l-10.5,22.6c-35.6,69.9-30.6,103.3-19.1,177.5-10.2-22.2-17.6-44.3-21-69.1-6.6-49.5,12.2-99.9,50.6-131Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M787.6,353.7c-23,34.2-45.3,67.5-73.3,98-19.6,21.4-43.4,36.6-64.2,55.3.3-10.3,8.4-17.5,15.6-25l50.7-52.4,11.8-14.5c11.3-13.8,21.6-27.9,35.6-39.4,3.1-10.6,14.2-17.2,23.8-22Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M203.8,602.6c-42.7-39.8-58.9-101.7-37.7-156.8l1.3,43.1c.2,18,5.2,34.2,10.2,50.9,5.3,17.8,12.6,33.5,20.9,50.1l5.3,12.8Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M753.5,88.2c-33.9-.4-64,2.9-95.5,13l-63.3,17.7c45.3-30.7,104.5-45.4,158.8-30.7Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M598.9,50.6l-31.2,7.8-14.6,3.3-43.8,18.7c-18.8,8-34.6,19.4-49.6,33.7-4.6,4.3-10.2,6.9-14.6,11.5l-2.6,2.7c-.4.4-1.9-1.6-1.1-2.7,40.4-47.2,94.2-82.3,157.5-75.1Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M492.5,766l-64.2,9.8,30.4-34.5c13.5,5.1,24.4,13.7,33.8,24.7Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M307.6,763.8c-38.9-13.5-67.5-42.4-81.5-80.9,3.2.9,5.5,3,7.5,5.8,12.8,17.8,26.8,33.7,43.8,47.4,7.7,6.2,13.8,13,23,17.4,4.3,2.1,7.6,6.4,7.1,10.3Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M382.5,112.3c1.3.7,1.5,2.6.2,2.8-18,10.9-32.9,24.2-45.8,40.8l-11.8,12.1-27.1,40c-.5.8-1,2.6-1.4,2.8-.6.4-2.1-1-2.5-1.8,16.8-43.1,45.2-80.1,88.4-96.7Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M536.7,842.8c-33.3,16.3-68.8,24.4-104.7,12.2,11.8-3.9,23.8-1.8,35.9-2.7,31.5-2.2,59.2-15,67.5-14.1,1,.1,1.8,2.3,1.3,4.6Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M908.4,664.7c-4,.1-7,1.3-11.5,4.5-2.7-7.8-4.2-14-3.4-20.4l5.8-44.9c11.7,13.2,10,41.1,9.1,60.8Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M916.8,587.9l-8.7-26.6c-6.8-20.8-10.6-41.2-10.5-63.1,2.1.8,4.4.6,7.3,1.4l5.2,33.4c2.7,17.5,7.7,33.6,8.5,51.5.7,1.7.5,3.7-1.9,3.4Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M1009.8,19.5l-17.4,6.5c-12.6,4.6-22.5,8.7-32,17.5l-17.2,9-15.3,4.3c19.1-22.8,53.2-42.4,81.9-37.3Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M672.9,867.6c-25.2,12.5-51.8,20.6-79.5,18.3,24.1-7.4,48.2-15.1,72.4-24.4l7,6.1Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M939.9,707.4c-8.9,10.5-18,19.7-31.2,27.2l13.2-40.1c5.1,1.8,5.1,11.4,18,12.9Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M787.1,231.3c-21.4-3.8-41.4-10-60.8-19.7,1.1-1.4,3.1-2.2,4.6-1.8,19.1,4.5,36.7,10.8,54.7,18.6,1.9.8,2.5,1.4,1.6,2.9Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M894.8,399.6c-12.7-14-22.1-29.4-28.7-47l11.4,4.5,18.9,39.3c.7,1.3,0,3.3-1.6,3.3Z"/> <path fill="var(--lg-tealD,#688888)" d="M908,673.5v-2.3s0,2.3,0,2.3Z"/> <path fill="var(--lg-peach,#f7d3b4)" d="M740.2,779.7c-46.7-25.2-63.7-96.9-38-139.2,7.8-12.8,19.9-19.9,35.9-15.5,12.8,3.5,20.8,18.1,24.2,32.7,9.2-14.1,18.1-27.4,32.8-36.2,9.1-5.5,23.2-8.7,32.5-1.8,27.7,20.3,4.4,75.5-19.2,102.3l-24.5,28c-11.5,13.1-25.7,22.5-43.7,29.8ZM717.2,729.5c5.6,12.2,11.3,23.8,24.7,30.6,33.3-21.1,59.9-51.6,75.6-87.6,3.7-8.4,4.5-17.2,6.1-25.9.8-4.2-2.4-8.4-4.5-10.3-14-13-47,29.5-52.2,60.4-1,6.2-7,9.8-11.8,8.2-15.6-5.2,1.1-33.1-14.7-56.9-2.8-4.3-7.6-7.7-12-7.2-17.4,2.2-30,48-11.3,88.6Z"/> </g> <path fill="var(--lg-tealD,#688888)" d="M131.5,293.3c-1.1,5.1-8.4,5.5-11.2,4.9-4.1-.9-6.4-6.5-5.1-12.3,12.6-56.6,42.7-106.3,85.4-145.1,3.5-3.2,8.3-1.2,10.4.4s5.7,9.6,2.4,12.6c-41.2,37.2-69.9,84.4-82,139.5Z"/> <path fill="var(--lg-tealD,#688888)" d="M248.6,121.1c-8.8-3.3-10.6-13.1-7.7-20.4s12-12.5,20-8.8c8.3,3.8,10.8,13,8.5,19.9s-11.3,12.9-20.8,9.3Z"/> </g>`;
 const LOGO_TEXT_BODY = `<path fill="var(--lg-ink,#3a3934)" d="M761,631.4l-13.9,24.4c-1.4,2.4-2.6,3.9-5,4s-4.3-.7-5.5-3.1l-13.6-26-3.2,33.7c-.3,3.1-2.3,5-4.7,5.1s-5.1-1.9-4.9-5l3.2-49.8c.2-3.3,1-5.2,4-6.1s4.8,0,6.2,2.7l18,34.1,18.5-33.6c1.6-3,4.5-4,7-3,3.1,1.1,3.4,4,3.6,7.4l2.9,48c.2,2.9-2.3,4.9-4.5,5.2s-4.7-1.2-5.1-4l-2.9-33.9Z"/> <path fill="var(--lg-ink,#3a3934)" d="M390.4,654.6c-2.4,16-21.9,15.5-39.2,14.2-1.6-.1-4.5-2-4.5-3.7v-51.4c0-3.9,4.2-5.5,7.6-5.5,13.3,0,28.1-1.5,32.4,11.5,2,6,.8,11.8-4.8,16.8,6.7,4.2,9.7,10.3,8.5,18.1ZM377.6,625.3c0-7.8-10-9.2-21.1-7.2v14.4c11,2,21.1.3,21.1-7.3ZM381.1,649.8c-1.5-7.9-12.4-8.2-24.4-7v16.5c13.5,2.1,26.2-.4,24.4-9.5Z"/> <path fill="var(--lg-ink,#3a3934)" d="M845.9,655.8l-25-.7c-5,7-5.9,16.8-12,13.7-2.2-1.1-3.4-3.5-2.2-6.3l20.7-50.4c1-2.4,2.9-3.5,4.9-3.8s5,.4,6.2,3.2l21.6,52.2c1,2.4-1.7,4.9-3.4,5.4-6.7,2.1-6.1-7-10.8-13.3ZM842.7,645.4l-9.5-21.8-9.2,22.1,18.7-.3Z"/> <path fill="var(--lg-ink,#3a3934)" d="M656.8,669.7c-10.3.7-19.3-1.5-25-9.4-1.5-2.1.5-5.2,2-6.1,6.4-3.6,10.7,9.7,25.1,5.2s5.4-4,5.4-7-1.9-5.9-5.2-7l-13.7-4.7c-7-2.4-11.7-7.5-12.1-14.1-.4-6.9,2.4-13.8,9.2-16.7,14.3-6.1,31.5,1.8,28.5,9.2-3,7.5-11.6-5.1-22.9-1.2s-5,3.5-5.3,6,1.8,6,5.4,7.2l14.7,5.1c8.3,2.9,12.6,10.4,11.1,18.8-1.3,7.5-7.9,14-17.4,14.7Z"/> <path fill="var(--lg-ink,#3a3934)" d="M585.7,655.1l-26.5.3-5,11.1c-1.1,2.4-3.4,3.1-5.3,2.7-2-.4-4.6-3.4-3.4-6.1l21.3-51c1.2-2.8,3.5-4.1,5.9-4.1s4.5,1.5,5.7,4.3l20.4,49.3c1.3,3.1.8,5.4-1.8,7s-5.5.6-6.8-2.5l-4.6-11.2ZM581.4,644.8l-8.8-20.9-9.4,21.5c6.8.3,12.4,1.3,18.2-.6Z"/> <path fill="var(--lg-ink,#3a3934)" d="M449.1,642.4l-.5,22.8c0,2.9-3.4,4.3-5.3,4.1-8.9-.8-1.7-20.4-5.3-25.9l-18-27.6c-1.6-2.5-1.2-5,.7-6.6s5.4-1.2,7.2,1.4l15.8,22.5,15.6-23c1.4-2.1,4.4-1.9,5.9-1.4,2.1.8,3.7,4.3,2.1,6.8l-18.1,27Z"/> <path fill="var(--lg-tealD,#688888)" d="M979.4,643l-66.7-.2c-3.3,0-4.3-3.9-4.2-6s2-5.4,5-5.4h66c3.9,0,6.3,2.5,6.5,5.4s-2.1,6.2-6.7,6.2Z"/> <path fill="var(--lg-tealD,#688888)" d="M275.9,643.1h-61.3c-4.4,0-7-1.4-7.4-5.1s2.4-6.6,7.4-6.6l64.1.2c3.6,0,4.6,4,4.3,6.2-.4,3.6-2.9,5.2-7.1,5.2Z"/> <g> <path fill="var(--lg-ink,#3a3934)" d="M925.7,432c1,25.5-38.1,52.2-66,53.2-2.7,9.5-2.1,20.4,4.8,27.9,24.4,26.7,108.5-41.4,127.8-70.1,12.1-28.2,19.6-57.3,34.7-85l-98.9,12.3c-4.5.5-7.9-1.4-9.2-5.1-1.1-3-.2-8.5,4.1-9l113-14.6,29-47.4c2.4-3.9,7.1-4.8,10.7-3.1s5.6,7.1,3.1,11.3l-22.1,36.9c37.5-3.2,72.5-6.3,108.7-4.4l14.5,2.2c4.4.7,5.9,4,6.2,7.6.2,2.6-2.1,7.9-6.1,6.9-9-2.2-17.4-3-27.1-3-35.7,0-70.3,3.1-106.2,7.2-16.3,30.2-29,61-39,93.6-8,25.9-12.9,55.7-6,81,5.8,21.3,24.7,32.6,46.5,27.9,17.8-3.8,33.5-13.4,46.3-26.6,3.3-3.4,8-3.5,10.9,0s1.7,7.3-1.6,10.6c-15,14.8-32.5,26.4-53.4,30-18.1,3.2-36.2-.8-49.1-13.9-20.5-20.9-20-54.2-15.8-84.8-29.4,25.4-65,57.2-102.7,59.6-22.3,1.4-39.5-12.9-40.4-36.9l-29.5,24.2c-6,4.9-13.3,7.4-21,8.8-14.4,2.6-26.8-6.9-28.6-21.8-2.7-22.5,5-45.8,1.4-49.3-4.4-4.4-27.5,16.4-36.1,28.1l-36.2,49.2c-3.1,4.2-6.9,6-11.9,4.1-4.3-1.7-5.5-6-4.8-11.2l5.3-34.9c.3-1.9.6-3.6-1.3-4.3-4.4-1.7-46.7,47.2-93.2,51.2-20.5,1.8-38.3-9.7-42.6-30-2.6-12.3-.5-24.4,2.9-37.3-16.8,6.7-32.8,10.7-51.1,10.9-7.1,19.7-17.2,38.7-37,46.9-14.7,6.1-29.8-.4-35.5-15.2l-3.8-20c-20.7,16.9-47.6,46.5-73.1,45.3-12.1-.6-20.5-9.7-20.7-21.8s1.9-19.4,6.2-28.3l19-39.2c1.4-2.8,1.9-6.7.5-9.5s-3.7-3.8-6.9-4.6l-16.4-3.8c-28.5,41.4-69.7,81.4-108.5,113.1-36.7,30-84.2,60.7-131.5,64.3-34.8,2.7-65.3-15.3-78.8-47.6-16.7-39.9-8.6-87.1,7.2-127.5,19-48.9,48.9-91.9,88.7-125.9,15.7-13.4,32.2-23.8,51-31.5,25.3-10.3,58.3-11.4,74.6,9.3,36.7,46.3-37.3,133.5-45.5,106.2s1.4-7.6,5.4-10.1c18.4-11.6,36.3-46,34.6-69.8s-9.3-23.5-22.1-26.2c-32.3-6.7-71.4,18.8-95.6,41.6-43.6,40.9-75.1,93.7-88.2,152.2-5.5,24.6-5,48.4,2.7,71.4,9,26.7,31.8,43.8,60.3,43.3,19.5-.3,37.7-6.2,55.3-14.6,54.4-26.1,107.4-73.6,148-118.4l27.7-35.5c-8.6-5-13-11.9-12.9-20.6.1-7.5,4.5-16,12.7-18.4,6.3-1.9,12.5-.8,17.4,3.3s6.5,9.1,5.7,15.5l-1.4,11.8,17.6,4.6c12.1,3.2,18,15.2,14.8,27.5-2.5,9.7-7.6,18.2-12.1,27.3-7,14.1-19.4,39.1-11.6,45.9s26.6-6.9,37.6-15.9c17.8-14.6,53.4-46,58.7-63.2,2.8-9,4.3-16.8,13.6-21.3s18.6-4.5,28.1.3c7.4,3.8,13.7,11.9,16.3,21.7l1.6,23.3c19.4-3.2,41.6-6,56.3-19.4s20.3-36.1,47.9-41.5,22.3.7,28.3,10.4,4.1,27.2-5.7,35.7-8.2,1.4-9.8-.8c-5.5-7.6,9.9-18.3,1.2-27.7-14.6-15.8-62,34-59.3,76.8,1,15.5,13.1,24.6,27.9,22.5,37.5-5.4,76.7-42,103.9-69.2,12.7-48.1,36-115,68.5-150.5,11.6-12.7,27.8-22.1,40.4-13.4,32.3,22.3-32.7,105-57.2,131.8l-37.3,40.8c-7.2,7.9-5.9,22.2-8.1,34.1l32.7-36.4c10.6-11.8,32.2-26.7,43.9-18.9s8.5,23.4,5.8,39.1c-1.9,11.6-1.7,27,4.2,30.7,6.9,4.4,20.2-4.2,29.7-11.6l33.8-31.7c8.4-25.2,29.7-55.3,55.6-57.6,12.1-1.1,22.7,5.8,23.2,19ZM793,312.9c.4-3.1-.9-6.5-2.6-7.3-7.7-3.8-22.1,12.2-29.7,23.5-21,31.1-35.5,65.3-46.2,102.5,28.4-28.5,73.2-81.7,78.5-118.8ZM320.5,412.9c2.3-1.2,1.3-9.4-1.3-9.2s-3.4,4.2-2.7,5.8,1.4,4.6,4,3.4ZM908.3,429.2c-9-8.4-37.8,19.2-43.6,40.6,23.2-3.6,53.1-31.7,43.6-40.6ZM483.6,468c1.6-15.9-1.1-28.6-13.5-31.8.3,9.8-11.4,11.5-12.2,15.5-1.1,6.3,13.7,16.1,25.7,16.3ZM478.9,482.7c-13.4-2-22.7-7.4-32.2-16.2-6.9,13.4-10.9,26.8-9.8,40.7.9,4.7,2.5,8.9,6.3,10.5,12.9,5.6,32.1-17.6,35.6-35.1ZM681,486.4l-.7.7.7.7.7-.7-.7-.7ZM420.4,495l-.7.7.7.7.7-.7-.7-.7ZM696.7,499.2l-.7.7.7.7.7-.7-.7-.7Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M478.9,482.7c-3.5,17.5-22.7,40.6-35.6,35.1s-5.4-5.9-6.3-10.5c-1.1-13.9,2.8-27.3,9.8-40.7,9.5,8.8,18.7,14.1,32.2,16.2Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M908.3,429.2c9.5,8.9-20.4,37-43.6,40.6,5.8-21.4,34.6-49.1,43.6-40.6Z"/> <path fill="var(--lg-cream,#fcf7f1)" d="M483.6,468c-12-.3-26.8-10-25.7-16.3s12.5-5.7,12.2-15.5c12.4,3.2,15.1,16,13.5,31.8Z"/> <path fill="var(--lg-teal,#b7cdca)" d="M320.5,412.9c-2.7,1.2-3.5-2.2-4-3.4s-.7-5.6,2.7-5.8,3.6,8.1,1.3,9.2Z"/> <rect fill="var(--lg-cream,#fdf7f1)" x="680.5" y="486.6" width="1" height="1" transform="translate(-145 624.2) rotate(-45)"/> <rect fill="var(--lg-cream,#fdf7f1)" x="419.9" y="495.2" width="1" height="1" transform="translate(-227.4 442.5) rotate(-45)"/> <rect fill="var(--lg-cream,#fdf7f1)" x="696.2" y="499.5" width="1" height="1" transform="translate(-149.5 639.1) rotate(-45)"/> <path fill="var(--lg-cream,#fcf7f1)" d="M793,312.9c-5.3,37.1-50.1,90.2-78.5,118.8,10.7-37.2,25.2-71.4,46.2-102.5,7.7-11.4,22-27.3,29.7-23.5s3.1,4.2,2.6,7.3Z"/> </g>`;
@@ -894,7 +979,7 @@ function ProductCard({ p, categories, favorites, toggleFav, go, addToCart }) {
 /* ============================ Store: Home ============================ */
 /* رحلة إبداعية من 9 مشاهد: Hero مسرحي → شريط متحرك → كون التصنيفات →
    منتجات → قصة الطلب المخصص (Ink) → ابنِ هديتك → معرض Bento → آراء → ختام Grad */
-function Home({ products, categories, gallery, settings, go }) {
+function Home({ products, categories, gallery, settings, texts: t, go }) {
   const featured = products.filter((p) => p.featured && !p.hidden).slice(0, 4);
   const [previewOcc, setPreviewOcc] = useState("مولود");
   const occIcon = { "مولود": <Art name="heart" size={84} style={{ margin: "0 auto" }} />, "تخرج": <Art name="star" size={78} style={{ margin: "0 auto" }} />, "زواج": <Art name="flower" size={84} style={{ margin: "0 auto" }} />, "رمضان": <Art name="gift" size={68} style={{ margin: "0 auto" }} />, "عيد": <Art name="tag" size={78} style={{ margin: "0 auto" }} /> };
@@ -905,20 +990,19 @@ function Home({ products, categories, gallery, settings, go }) {
         <div className="container grid md-2" style={{ alignItems: "center" }}>
           <div>
             <div className="row" style={{ gap: 8 }}>
-              <span className="badge peach sticker" style={{ fontSize: 12.5 }}>♡ صُنع بحب — كل غرزة لأجلك</span>
-              <span className="badge">📍 صنع في الرياض</span>
+              <span className="badge peach sticker" style={{ fontSize: 12.5 }}>{t.heroBadge1}</span>
+              <span className="badge">{t.heroBadge2}</span>
             </div>
             <div style={{ height: 14 }} />
-            <KineticTitle className="display mega" text="هنا ~الخيوط * تتحوّل حكايات" />
+            <KineticTitle className="display mega" text={t.heroTitle} />
             <p className="muted" style={{ maxWidth: 460, margin: "16px 0 24px", fontSize: 16 }}>
-              كون صغير من الكروشيه والمطبوعات والقطع ثلاثية الأبعاد — كل قطعة تُصنع
-              <span className="hl-doodle"> خصيصًا لكِ<DoodleUnderline /></span> باسمك ومناسبتك.
+              <Rich text={t.heroSub} hl="doodle" />
             </p>
             <div className="row">
-              <Magnetic><button className="btn primary" onClick={() => go({ page: "shop" })}>تسوقي الكون <span className="arr">←</span></button></Magnetic>
-              <Magnetic><button className="btn ghost" onClick={() => go({ page: "wizard" })}>ابدئي طلبًا مخصصًا <span className="arr">←</span></button></Magnetic>
+              <Magnetic><button className="btn primary" onClick={() => go({ page: "shop" })}>{t.heroCtaShop} <span className="arr">←</span></button></Magnetic>
+              <Magnetic><button className="btn ghost" onClick={() => go({ page: "wizard" })}>{t.heroCtaCustom} <span className="arr">←</span></button></Magnetic>
             </div>
-            <div className="scroll-cue">اسحبي لتدخلي العالم<span>⌄</span></div>
+            <div className="scroll-cue">{t.heroScrollCue}<span>⌄</span></div>
           </div>
           <div className="hero-cluster"
             onMouseMove={(e) => {
@@ -950,9 +1034,7 @@ function Home({ products, categories, gallery, settings, go }) {
       <div className="marquee" aria-hidden="true">
         <div className="marquee-track">
           {[0, 1].map((k) => (
-            <span key={k}>
-              كروشيه <i>✿</i> مطبوعات <i>★</i> طباعة ثلاثية الأبعاد <i>✿</i> توزيعات <i>★</i> هدايا بالاسم <i>✿</i> صنع في الرياض <i>★</i>
-            </span>
+            <span key={k}><MarqueeText text={t.marquee1} /></span>
           ))}
         </div>
       </div>
@@ -961,8 +1043,8 @@ function Home({ products, categories, gallery, settings, go }) {
       <div className="band band-white" style={{ position: "relative", overflow: "hidden" }}>
         <DoodleField variant={0} />
         <div className="container">
-          <Reveal><span className="eyebrow">✳ الكون الصغير</span>
-            <h2 className="xl">اختاري <span className="mark">عالمك</span></h2></Reveal>
+          <Reveal><span className="eyebrow">{t.catsEyebrow}</span>
+            <h2 className="xl"><Rich text={t.catsTitle} /></h2></Reveal>
           <div className="cat-list">
             {categories.sort((a, b) => a.order - b.order).map((c, i) => {
               const icons = { crochet: <Art name="yarn" size={68} />, prints: <Art name="card" size={68} />, print3d: <Art name="gift" size={54} />, custom: <Art name="flower" size={64} /> };
@@ -986,10 +1068,10 @@ function Home({ products, categories, gallery, settings, go }) {
       {/* 4 — منتجات مميزة */}
       <div className="band band-mint">
         <div className="container">
-          <Reveal><span className="eyebrow">♡ قطع تُقتنى</span>
+          <Reveal><span className="eyebrow">{t.featEyebrow}</span>
             <div className="section-head" style={{ marginTop: 0 }}>
-              <h2 style={{ fontSize: 26 }}>مختارات هذا الموسم</h2>
-              <button className="link" onClick={() => go({ page: "shop" })}>عرض الكل</button>
+              <h2 style={{ fontSize: 26 }}>{t.featTitle}</h2>
+              <button className="link" onClick={() => go({ page: "shop" })}>{t.featLink}</button>
             </div></Reveal>
           <div className="grid cols-2 md-4">
             {featured.map((p, i) => (
@@ -1009,14 +1091,14 @@ function Home({ products, categories, gallery, settings, go }) {
         <span className="deco float alt" style={{ bottom: 16, insetInlineStart: "5%" }}><Art name="heart" size={64} glow /></span>
         <div className="container" style={{ textAlign: "center", position: "relative" }}>
           <Reveal>
-            <span className="eyebrow">✎ الطلب المخصص</span>
+            <span className="eyebrow">{t.customEyebrow}</span>
             <h2 className="display mega" style={{ fontSize: "clamp(30px,6.5vw,58px)" }}>
-              احكي لنا <span className="hand" style={{ color: "var(--peach)" }}>فكرتك</span>،<br />ونحن <span className="mark">نحيكها</span> واقعًا
+              <Rich text={t.customTitle} />
             </h2>
             <p className="muted" style={{ maxWidth: 520, margin: "14px auto 24px" }}>
-              اسم مولود، عبارة تخرج، توزيعات بمئة قطعة، أو صورة من خيالك — أرسليها لنا وشاهديها تتحول قطعةً تلمسينها.
+              {t.customSub}
             </p>
-            <Magnetic><button className="btn accent" onClick={() => go({ page: "wizard" })}>ابدئي الحكاية ←</button></Magnetic>
+            <Magnetic><button className="btn accent" onClick={() => go({ page: "wizard" })}>{t.customCta}</button></Magnetic>
           </Reveal>
         </div>
       </div>
@@ -1026,9 +1108,9 @@ function Home({ products, categories, gallery, settings, go }) {
         <DoodleField variant={1} />
         <div className="container grid md-2" style={{ alignItems: "center" }}>
           <Reveal>
-            <span className="eyebrow">☞ جربي بنفسك</span>
-            <h2 style={{ margin: "0 0 8px", fontSize: 26 }}>ابني هديتك في ثوانٍ</h2>
-            <p className="muted small" style={{ maxWidth: 420 }}>اختاري المناسبة وشاهدي كيف تتغير الفكرة — ثم أكملي التفاصيل في معالج الطلب.</p>
+            <span className="eyebrow">{t.builderEyebrow}</span>
+            <h2 style={{ margin: "0 0 8px", fontSize: 26 }}>{t.builderTitle}</h2>
+            <p className="muted small" style={{ maxWidth: 420 }}>{t.builderSub}</p>
             <div className="chips" style={{ margin: "14px 0" }}>
               {["مولود", "تخرج", "زواج", "رمضان", "عيد"].map((o) => (
                 <button key={o} className={`chip ${previewOcc === o ? "active" : ""}`} onClick={() => setPreviewOcc(o)}>{o}</button>
@@ -1053,19 +1135,19 @@ function Home({ products, categories, gallery, settings, go }) {
       <div className="marquee rev light" aria-hidden="true">
         <div className="marquee-track">
           {[0, 1].map((k) => (
-            <span key={k}>من أعمالنا <i>❋</i> ٤٠٠+ طلب منفذ <i>❋</i> لكل مدن المملكة <i>❋</i> قطع لا تتكرر <i>❋</i></span>
+            <span key={k}><MarqueeText text={t.marquee2} icons={["❋"]} /></span>
           ))}
         </div>
       </div>
       <div className="band band-teal">
         <div className="container">
           <Reveal>
-            <span className="eyebrow">❋ من الأرشيف</span>
+            <span className="eyebrow">{t.galEyebrow}</span>
             <div className="section-head" style={{ marginTop: 0 }}>
-              <h2 className="xl" style={{ margin: 0 }}>معرضنا <span className="mark">الصغير</span></h2>
-              <button className="link" onClick={() => go({ page: "gallery" })}>كل الأعمال ←</button>
+              <h2 className="xl" style={{ margin: 0 }}><Rich text={t.galTitle} /></h2>
+              <button className="link" onClick={() => go({ page: "gallery" })}>{t.galLink}</button>
             </div>
-            <p className="small muted hand" style={{ marginTop: -8 }}>اسحبي يمينًا ويسارًا ✋</p>
+            <p className="small muted hand" style={{ marginTop: -8 }}>{t.galHint}</p>
           </Reveal>
           <div className="hstrip">
             {gallery.slice(0, 8).map((g, i) => (
@@ -1085,13 +1167,13 @@ function Home({ products, categories, gallery, settings, go }) {
       <div className="band band-white" style={{ position: "relative", overflow: "hidden" }}>
         <DoodleField variant={2} />
         <div className="container">
-          <Reveal><span className="eyebrow">✉ رسائل وصلتنا</span>
-            <div className="section-head" style={{ marginTop: 0 }}><h2 style={{ fontSize: 26 }}>يقولون عنا</h2></div></Reveal>
+          <Reveal><span className="eyebrow">{t.revEyebrow}</span>
+            <div className="section-head" style={{ marginTop: 0 }}><h2 style={{ fontSize: 26 }}>{t.revTitle}</h2></div></Reveal>
           <div className="grid md-3">
             {[
-              { n: "أم فيصل — الرياض", t: "الدمية أجمل من الصور، بنتي ما تفارقها 🥹", bg: "var(--mint)", r: "-1.6deg" },
-              { n: "أبرار — جدة", t: "طلبت توزيعات التخرج متأخرة وقبلوا طلبي المستعجل. أنقذوني!", bg: "var(--peach)", r: "1.4deg" },
-              { n: "أم لمار — الدمام", t: "الاسم ثلاثي الأبعاد طلع مطابق للتصميم اللي وافقت عليه بالضبط.", bg: "var(--teal-light)", r: "-1deg" },
+              { n: t.rev1Name, t: t.rev1Text, bg: "var(--mint)", r: "-1.6deg" },
+              { n: t.rev2Name, t: t.rev2Text, bg: "var(--peach)", r: "1.4deg" },
+              { n: t.rev3Name, t: t.rev3Text, bg: "var(--teal-light)", r: "-1deg" },
             ].map((r, i) => (
               <Reveal key={i} delay={i * 100}>
                 <div className="note-card" style={{ background: r.bg, transform: `rotate(${r.r})` }}>
@@ -1112,10 +1194,10 @@ function Home({ products, categories, gallery, settings, go }) {
         <span className="deco float alt" style={{ bottom: 14, insetInlineEnd: "10%" }}><StarSpark size={20} color="#F6C7AD" /></span>
         <div className="container">
           <Reveal>
-            <h2 className="display mega" style={{ fontSize: "clamp(32px,7vw,64px)" }}>مناسبتك القادمة تستحق<br /><span className="mark">قطعة لا تتكرر</span></h2>
+            <h2 className="display mega" style={{ fontSize: "clamp(32px,7vw,64px)" }}><Rich text={t.finaleTitle} /></h2>
             <div className="row" style={{ justifyContent: "center", marginTop: 22 }}>
-              <Magnetic><button className="btn accent" onClick={() => go({ page: "wizard" })}>ابدئي طلبك 🎀</button></Magnetic>
-              <a className="btn" style={{ background: "rgba(255,255,255,.15)", color: "var(--white)", borderColor: "rgba(255,255,255,.5)" }} href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noreferrer">💬 كلمينا واتساب</a>
+              <Magnetic><button className="btn accent" onClick={() => go({ page: "wizard" })}>{t.finaleCta}</button></Magnetic>
+              <a className="btn" style={{ background: "rgba(255,255,255,.15)", color: "var(--white)", borderColor: "rgba(255,255,255,.5)" }} href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noreferrer">{t.finaleWhats}</a>
             </div>
           </Reveal>
         </div>
@@ -1377,17 +1459,17 @@ function Gallery({ gallery, categories, go }) {
 }
 
 /* ============================ Store: About ============================ */
-function About({ go, settings }) {
+function About({ go, settings, texts: t }) {
   return (
     <div className="container">
       <div className="section card pad">
-        <h2 style={{ marginTop: 0 }}>عن كروشيه أسماء</h2>
-        <span className="badge">📍 صنع في الرياض</span>
-        <p className="muted" style={{ marginTop: 10 }}>كروشيه، مطبوعات، وقطع ثلاثية الأبعاد — تُصنع بحب في الرياض، وتصل مخصصةً باسمك ومناسبتك إلى كل مدن المملكة.</p>
+        <h2 style={{ marginTop: 0 }}>{t.aboutTitle}</h2>
+        <span className="badge">{t.heroBadge2}</span>
+        <p className="muted" style={{ marginTop: 10 }}>{t.aboutIntro}</p>
         <div className="grid md-3" style={{ margin: "16px 0" }}>
-          <div className="card soft pad"><b>🧶 يدوي 100%</b><p className="small muted" style={{ margin: "6px 0 0" }}>كل قطعة تُصنع وتُجهز يدويًا بعناية، وليست إنتاجًا تجاريًا بالجملة.</p></div>
-          <div className="card soft pad"><b>🎀 مخصص لكِ</b><p className="small muted" style={{ margin: "6px 0 0" }}>الاسم، العبارة، المناسبة، الكمية — كل التفاصيل تُنفذ حسب طلبك.</p></div>
-          <div className="card soft pad"><b>✨ قطع فريدة</b><p className="small muted" style={{ margin: "6px 0 0" }}>لأنها مصنوعة يدويًا، قد تختلف كل قطعة قليلًا عن غيرها — وهذا سر جمالها.</p></div>
+          <div className="card soft pad"><b>{t.aboutCard1Title}</b><p className="small muted" style={{ margin: "6px 0 0" }}>{t.aboutCard1Text}</p></div>
+          <div className="card soft pad"><b>{t.aboutCard2Title}</b><p className="small muted" style={{ margin: "6px 0 0" }}>{t.aboutCard2Text}</p></div>
+          <div className="card soft pad"><b>{t.aboutCard3Title}</b><p className="small muted" style={{ margin: "6px 0 0" }}>{t.aboutCard3Text}</p></div>
         </div>
         <div className="notice" style={{ marginBottom: 8 }}>⏱ {settings.customLeadTime}.</div>
         <div className="notice">↩️ {settings.cancelPolicy}</div>
@@ -1401,15 +1483,15 @@ function About({ go, settings }) {
 }
 
 /* ============================ Store: Contact ============================ */
-function Contact({ settings }) {
+function Contact({ settings, texts: t }) {
   const [sent, setSent] = useState(false);
   const [topic, setTopic] = useState("طلب مخصص");
   return (
     <div className="container">
       <div className="section grid md-2">
         <div className="card pad">
-          <h2 style={{ marginTop: 0 }}>تواصلي معنا</h2>
-          <p className="muted small">أسرع طريقة للرد هي واتساب — عادة نرد خلال ساعات العمل من السبت إلى الخميس.</p>
+          <h2 style={{ marginTop: 0 }}>{t.contactTitle}</h2>
+          <p className="muted small">{t.contactIntro}</p>
           <div className="row" style={{ marginBottom: 18 }}>
             <a className="btn primary" style={{ flex: 1 }} href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noreferrer">💬 واتساب</a>
             <a className="btn" style={{ flex: 1 }} href={`https://instagram.com/${settings.instagram}`} target="_blank" rel="noreferrer">📷 إنستغرام</a>
@@ -1943,7 +2025,7 @@ function Account({ user, setUser, orders, favorites, products, go }) {
 
 /* ============================ Admin ============================ */
 function Admin(props) {
-  const { orders, setOrders, products, setProducts, categories, setCategories, coupons, setCoupons, gallery, setGallery, notifications, setNotifications, settings, setSettings, onReset } = props;
+  const { orders, setOrders, products, setProducts, categories, setCategories, coupons, setCoupons, gallery, setGallery, notifications, setNotifications, settings, setSettings, texts, setTexts, onReset } = props;
   const [tab, setTab] = useState("dashboard");
   const [invoice, setInvoice] = useState(null);
   const unread = notifications.filter((n) => !n.read).length;
@@ -1954,7 +2036,7 @@ function Admin(props) {
   const TABS = [
     ["dashboard", "📊 لوحة المعلومات"], ["orders", "📦 الطلبات"], ["customOrders", "✨ الطلبات الخاصة"],
     ["products", "🧶 المنتجات"], ["categories", "🗂 التصنيفات"], ["coupons", "🏷 أكواد الخصم"],
-    ["gallery", "🖼 معرض الأعمال"], ["notifications", `🔔 الإشعارات${unread ? ` (${unread})` : ""}`], ["settings", "⚙️ الإعدادات"],
+    ["gallery", "🖼 معرض الأعمال"], ["texts", "📝 نصوص الموقع"], ["notifications", `🔔 الإشعارات${unread ? ` (${unread})` : ""}`], ["settings", "⚙️ الإعدادات"],
   ];
 
   return (
@@ -1971,6 +2053,7 @@ function Admin(props) {
           {tab === "categories" && <AdminCategories categories={categories} setCategories={setCategories} />}
           {tab === "coupons" && <AdminCoupons coupons={coupons} setCoupons={setCoupons} />}
           {tab === "gallery" && <AdminGallery gallery={gallery} setGallery={setGallery} categories={categories} />}
+          {tab === "texts" && <AdminTexts texts={texts} setTexts={setTexts} />}
           {tab === "notifications" && (
             <div className="card pad">
               <div className="between"><b>الإشعارات</b><button className="btn sm" onClick={() => setNotifications(notifications.map((n) => ({ ...n, read: true })))}>تحديد الكل كمقروء</button></div>
@@ -2386,6 +2469,128 @@ function AdminGallery({ gallery, setGallery, categories }) {
   );
 }
 
+/* تبويب نصوص الموقع: تعديل كل الكلام الظاهر للزائرات، مع حفظ تلقائي */
+const TEXT_GROUPS = [
+  {
+    title: "🔔 الشريط العلوي",
+    hint: "اكتبي {المبلغ} في المكان الذي تريدين أن يظهر فيه حد الشحن المجاني تلقائيًا.",
+    fields: [["announce", "نص الشريط العلوي", true]],
+  },
+  {
+    title: "🏠 الواجهة الرئيسية (أعلى الصفحة)",
+    hint: "في العنوان الكبير: ضعي ~ قبل الكلمة لتظليلها، و * وحدها بين الكلمات لسطر جديد. في الوصف: ضعي الكلمة بين نجمتين *هكذا* ليظهر تحتها خط مرسوم.",
+    fields: [
+      ["heroBadge1", "الشارة الأولى"],
+      ["heroBadge2", "الشارة الثانية (تظهر أيضًا في صفحة عن المتجر)"],
+      ["heroTitle", "العنوان الكبير"],
+      ["heroSub", "الوصف تحت العنوان", true],
+      ["heroCtaShop", "زر التسوق"],
+      ["heroCtaCustom", "زر الطلب المخصص"],
+      ["heroScrollCue", "عبارة التمرير للأسفل"],
+    ],
+  },
+  {
+    title: "🎞 الشريطان المتحركان",
+    hint: "افصلي بين العبارات بعلامة · وستوضع الأيقونات بينها تلقائيًا.",
+    fields: [
+      ["marquee1", "الشريط الأول (بعد الواجهة)", true],
+      ["marquee2", "الشريط الثاني (قبل المعرض)", true],
+    ],
+  },
+  {
+    title: "🗂 قسم التصنيفات",
+    fields: [["catsEyebrow", "السطر الصغير"], ["catsTitle", "العنوان"]],
+  },
+  {
+    title: "🧶 قسم المنتجات المميزة",
+    fields: [["featEyebrow", "السطر الصغير"], ["featTitle", "العنوان"], ["featLink", "رابط عرض الكل"]],
+  },
+  {
+    title: "✨ قسم الطلب المخصص",
+    fields: [
+      ["customEyebrow", "السطر الصغير"],
+      ["customTitle", "العنوان", true],
+      ["customSub", "الوصف", true],
+      ["customCta", "زر البدء"],
+    ],
+  },
+  {
+    title: "🎁 قسم ابني هديتك",
+    fields: [["builderEyebrow", "السطر الصغير"], ["builderTitle", "العنوان"], ["builderSub", "الوصف", true]],
+  },
+  {
+    title: "🖼 قسم المعرض",
+    fields: [["galEyebrow", "السطر الصغير"], ["galTitle", "العنوان"], ["galLink", "رابط كل الأعمال"], ["galHint", "تلميح السحب"]],
+  },
+  {
+    title: "💬 قسم يقولون عنا",
+    fields: [
+      ["revEyebrow", "السطر الصغير"], ["revTitle", "العنوان"],
+      ["rev1Name", "الاسم الأول"], ["rev1Text", "الرسالة الأولى", true],
+      ["rev2Name", "الاسم الثاني"], ["rev2Text", "الرسالة الثانية", true],
+      ["rev3Name", "الاسم الثالث"], ["rev3Text", "الرسالة الثالثة", true],
+    ],
+  },
+  {
+    title: "🎀 الختام (أسفل الرئيسية)",
+    fields: [["finaleTitle", "العنوان", true], ["finaleCta", "زر الطلب"], ["finaleWhats", "زر واتساب"]],
+  },
+  {
+    title: "📄 صفحة عن المتجر",
+    fields: [
+      ["aboutTitle", "العنوان"], ["aboutIntro", "المقدمة", true],
+      ["aboutCard1Title", "البطاقة 1 — العنوان"], ["aboutCard1Text", "البطاقة 1 — النص", true],
+      ["aboutCard2Title", "البطاقة 2 — العنوان"], ["aboutCard2Text", "البطاقة 2 — النص", true],
+      ["aboutCard3Title", "البطاقة 3 — العنوان"], ["aboutCard3Text", "البطاقة 3 — النص", true],
+    ],
+  },
+  {
+    title: "☎️ صفحة تواصلي معنا",
+    fields: [["contactTitle", "العنوان"], ["contactIntro", "المقدمة", true]],
+  },
+  {
+    title: "⬇️ الفوتر (أسفل الموقع)",
+    fields: [
+      ["footerTagline", "الوصف المختصر", true],
+      ["footerHand", "العبارة بخط اليد"],
+      ["footerThanks", "شريط الشكر", true],
+    ],
+  },
+];
+
+function AdminTexts({ texts, setTexts }) {
+  const set = (k, v) => setTexts({ ...texts, [k]: v });
+  return (
+    <div style={{ display: "grid", gap: 14 }}>
+      <div className="notice">
+        📝 عدّلي أي نص وسيُحفظ تلقائيًا ويظهر مباشرة في الموقع.
+        رموز التنسيق: <b>*كلمة*</b> للتظليل · <b>~كلمة~</b> لخط اليد · <b>|</b> لسطر جديد.
+      </div>
+      {TEXT_GROUPS.map((g) => (
+        <div key={g.title} className="card pad">
+          <b>{g.title}</b>
+          {g.hint && <p className="small muted" style={{ margin: "6px 0 0" }}>{g.hint}</p>}
+          <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
+            {g.fields.map(([k, label, long]) => (
+              <label key={k} className="small" style={{ display: "grid", gap: 4 }}>
+                <span className="muted">{label}</span>
+                {long
+                  ? <textarea className="input" rows={2} value={texts[k]} onChange={(e) => set(k, e.target.value)} />
+                  : <input className="input" value={texts[k]} onChange={(e) => set(k, e.target.value)} />}
+              </label>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div className="card pad">
+        <b>↩️ استرجاع النصوص الأصلية</b>
+        <p className="small muted" style={{ margin: "6px 0 10px" }}>يعيد كل نصوص الموقع إلى الصياغة الافتراضية — لا يؤثر على المنتجات أو الطلبات أو الإعدادات.</p>
+        <button className="btn sm" onClick={() => { if (window.confirm("متأكدة من استرجاع كل النصوص الأصلية؟")) setTexts(initialTexts); }}>استرجاع الكل</button>
+      </div>
+    </div>
+  );
+}
+
 function AdminSettings({ settings, setSettings, onReset }) {
   const [s, setS] = useState(settings);
   const [saved, setSaved] = useState(false);
@@ -2452,6 +2657,7 @@ export default function App() {
   const [reviews, setReviews] = useState(initialReviews);
   const [notifications, setNotifications] = useState(initialNotifications);
   const [settings, setSettings] = useState(initialSettings);
+  const [texts, setTexts] = useState(initialTexts);
   const [cart, setCart] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [user, setUser] = useState(null);
@@ -2475,6 +2681,7 @@ export default function App() {
           if (!s.cancelPolicy.includes("الرقمي")) s.cancelPolicy += " المنتج الرقمي لا يمكن استرجاعه ولا استبداله بعد الشراء.";
           setSettings(s);
         }
+        d.texts && setTexts({ ...initialTexts, ...d.texts });
         d.nextNum && setNextNum(d.nextNum);
       }
       setLoaded(true);
@@ -2484,9 +2691,9 @@ export default function App() {
   /* حفظ تلقائي (مع تأخير بسيط لتجميع التعديلات) */
   useEffect(() => {
     if (!loaded) return;
-    const t = setTimeout(() => dbSave({ products, categories, gallery, orders, coupons, reviews, notifications, settings, nextNum }), 700);
+    const t = setTimeout(() => dbSave({ products, categories, gallery, orders, coupons, reviews, notifications, settings, texts, nextNum }), 700);
     return () => clearTimeout(t);
-  }, [loaded, products, categories, gallery, orders, coupons, reviews, notifications, settings, nextNum]);
+  }, [loaded, products, categories, gallery, orders, coupons, reviews, notifications, settings, texts, nextNum]);
 
   const resetAll = async () => { await dbClear(); window.location.reload(); };
 
@@ -2582,7 +2789,11 @@ export default function App() {
         </div>
       )}
       <header className={`header no-print ${hideHeader ? "hide" : ""}`}>
-        <div className="announce">🚚 شحن مجاني للطلبات فوق <b>{SAR(settings.freeShippingOver)}</b> · توصيل لجميع مدن المملكة 🤍</div>
+        <div className="announce">
+          {texts.announce.split("{المبلغ}").map((part, i, arr) => (
+            <React.Fragment key={i}>{part}{i < arr.length - 1 && <b>{SAR(settings.freeShippingOver)}</b>}</React.Fragment>
+          ))}
+        </div>
         <div className="container">
           <div className="header-row">
             <div className="logo" style={{ cursor: "pointer" }} onClick={() => go({ page: "home" })}>
@@ -2603,13 +2814,13 @@ export default function App() {
       </header>
 
       <main style={{ paddingBottom: 30 }}>
-        {route.page === "home" && <Home products={products} categories={categories} gallery={gallery} settings={settings} go={go} />}
+        {route.page === "home" && <Home products={products} categories={categories} gallery={gallery} settings={settings} texts={texts} go={go} />}
         {route.page === "shop" && <Shop products={products} categories={categories} favorites={favorites} toggleFav={toggleFav} go={go} initCat={route.cat} />}
         {route.page === "product" && <ProductDetail product={products.find((p) => p.id === route.id)} categories={categories} reviews={reviews} addReview={addReview} addToCart={addToCart} go={go} settings={settings} />}
         {route.page === "wizard" && <Wizard key={JSON.stringify(route.prefill || {})} categories={categories} products={products} gallery={gallery} settings={settings} prefill={route.prefill} createOrder={createOrder} go={go} />}
         {route.page === "gallery" && <Gallery gallery={gallery} categories={categories} go={go} />}
-        {route.page === "about" && <About go={go} settings={settings} />}
-        {route.page === "contact" && <Contact settings={settings} />}
+        {route.page === "about" && <About go={go} settings={settings} texts={texts} />}
+        {route.page === "contact" && <Contact settings={settings} texts={texts} />}
         {route.page === "cart" && <CartPage cart={cart} setCart={setCart} coupons={coupons} settings={settings} go={go} createOrder={createOrder} />}
         {route.page === "track" && <Track orders={orders} initId={route.orderId} />}
         {route.page === "account" && <Account user={user} setUser={setUser} orders={orders} favorites={favorites} products={products} go={go} />}
@@ -2622,6 +2833,7 @@ export default function App() {
             gallery={gallery} setGallery={setGallery}
             notifications={notifications} setNotifications={setNotifications}
             settings={settings} setSettings={setSettings}
+            texts={texts} setTexts={setTexts}
             onReset={resetAll}
           />
         )}
@@ -2634,8 +2846,8 @@ export default function App() {
           <div className="grid md-3">
             <div>
               <div className="row"><LogoMark size={54} light /><LogoScript height={46} light /></div>
-              <p className="small" style={{ margin: "10px 0 0" }}>قطع يدوية مخصصة لمناسباتك — صنع في الرياض 📍 جميع الأسعار تشمل الضريبة.</p>
-              <p className="small hand" style={{ margin: "8px 0 0", color: "var(--peach)" }}>من خيوطٍ صُنعت… وبالحب مُلئت ♡</p>
+              <p className="small" style={{ margin: "10px 0 0" }}>{texts.footerTagline}</p>
+              <p className="small hand" style={{ margin: "8px 0 0", color: "var(--peach)" }}>{texts.footerHand}</p>
             </div>
             <div>
               <b style={{ color: "var(--text)" }}>روابط سريعة</b>
@@ -2653,7 +2865,7 @@ export default function App() {
             </div>
           </div>
           <div className="thanks-strip" style={{ marginTop: 20, background: "rgba(255,255,255,.12)", color: "#fff" }}>
-            ♡ شكرًا لدعمك المنتجات اليدوية — كل غرزة صُنعت خصيصًا لكِ ♡
+            {texts.footerThanks}
           </div>
           <p className="small" style={{ textAlign: "center", marginTop: 14 }}>© {new Date().getFullYear()} {settings.storeName} — جميع الحقوق محفوظة</p>
         </div>
