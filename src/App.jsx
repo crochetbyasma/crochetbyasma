@@ -270,7 +270,9 @@ textarea.input{resize:vertical;min-height:80px}
   linear-gradient(160deg,var(--cream) 30%,var(--mint) 100%);
   padding:56px 0 70px}
 .hero-cluster{position:relative;min-height:300px}
-.hero-card{position:relative;z-index:5;max-width:290px;margin:0 auto;transform:rotate(-2.5deg)}
+.hero-card{position:relative;z-index:5;max-width:340px;margin:0 auto;transform:rotate(-2.5deg);cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.hero-card:hover{transform:rotate(-2.5deg) translateY(-4px);box-shadow:var(--shadow-lift)!important}
+.hero-card b{font-size:15px}
 .deco{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 10px 16px rgba(92,148,144,.28))}
 .scroll-cue{display:inline-flex;flex-direction:column;align-items:center;gap:2px;color:var(--teal-dark);font-size:11.5px;font-weight:700;margin-top:26px;animation:cueBounce 1.8s ease-in-out infinite}
 
@@ -981,6 +983,7 @@ function ProductCard({ p, categories, favorites, toggleFav, go, addToCart }) {
    منتجات → قصة الطلب المخصص (Ink) → ابنِ هديتك → معرض Bento → آراء → ختام Grad */
 function Home({ products, categories, gallery, settings, texts: t, go }) {
   const featured = products.filter((p) => p.featured && !p.hidden).slice(0, 4);
+  const heroProduct = featured[0] || products.find((p) => !p.hidden) || products[0];
   const [previewOcc, setPreviewOcc] = useState("مولود");
   const occIcon = { "مولود": <Art name="heart" size={84} style={{ margin: "0 auto" }} />, "تخرج": <Art name="star" size={78} style={{ margin: "0 auto" }} />, "زواج": <Art name="flower" size={84} style={{ margin: "0 auto" }} />, "رمضان": <Art name="gift" size={68} style={{ margin: "0 auto" }} />, "عيد": <Art name="tag" size={78} style={{ margin: "0 auto" }} /> };
   return (
@@ -1012,14 +1015,21 @@ function Home({ products, categories, gallery, settings, texts: t, go }) {
               e.currentTarget.style.transform = `perspective(800px) rotateY(${x * -7}deg) rotateX(${y * 7}deg)`;
             }}
             onMouseLeave={(e) => { e.currentTarget.style.transform = ""; }}>
-            <div className="stitch-frame hero-card" style={{ background: "var(--white)", boxShadow: "var(--shadow-card)" }}>
-              <span style={{ position: "absolute", top: -44, insetInlineEnd: -34, zIndex: 4 }}><SpinBadge size={96} /></span>
-              <Ph label="القطعة المميزة هذا الأسبوع" />
-              <div className="pad" style={{ padding: 12 }}>
-                <b className="small">باقة زهور كروشيه</b>
-                <div className="between"><span className="price">{SAR(140)}</span><span className="badge peach">جديد</span></div>
+            {heroProduct && (
+              <div className="stitch-frame hero-card" style={{ background: "var(--white)", boxShadow: "var(--shadow-card)" }}
+                onClick={() => go({ page: "product", id: heroProduct.id })}
+                role="button" tabIndex={0}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go({ page: "product", id: heroProduct.id }); } }}
+                aria-label={`القطعة المميزة هذا الأسبوع: ${heroProduct.name}`}>
+                <span style={{ position: "absolute", top: -44, insetInlineEnd: -34, zIndex: 4 }}><SpinBadge size={96} /></span>
+                <Pic src={heroProduct.image} srcs={heroProduct.images} label={heroProduct.name} />
+                <div className="pad" style={{ padding: 14 }}>
+                  <span className="small muted">القطعة المميزة هذا الأسبوع</span>
+                  <b style={{ display: "block", marginTop: 2 }}>{heroProduct.name}</b>
+                  <div className="between" style={{ marginTop: 4 }}><span className="price">{SAR(heroProduct.price)}</span><span className="badge peach">جديد</span></div>
+                </div>
               </div>
-            </div>
+            )}
             <span className="deco float" style={{ top: -6, insetInlineStart: "6%", "--r": "-10deg" }}><Art name="yarn" size={96} /></span>
             <span className="deco float alt" style={{ top: "16%", insetInlineEnd: "2%", "--r": "14deg" }}><Art name="gift" size={64} /></span>
             <span className="deco float" style={{ bottom: "4%", insetInlineStart: "12%", "--r": "8deg", animationDelay: ".8s" }}><Art name="heart" size={72} /></span>
