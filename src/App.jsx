@@ -1030,12 +1030,13 @@ function Home({ products, categories, gallery, settings, texts: t, go }) {
                 </div>
               </div>
             )}
-            <span className="deco float" style={{ top: -6, insetInlineStart: "6%", "--r": "-10deg" }}><Art name="yarn" size={96} /></span>
-            <span className="deco float alt" style={{ top: "16%", insetInlineEnd: "2%", "--r": "14deg" }}><Art name="gift" size={64} /></span>
-            <span className="deco float" style={{ bottom: "4%", insetInlineStart: "12%", "--r": "8deg", animationDelay: ".8s" }}><Art name="heart" size={72} /></span>
-            <span className="deco float alt" style={{ bottom: "18%", insetInlineEnd: "14%", "--r": "-6deg", animationDelay: "1.3s" }}><Art name="flower" size={78} /></span>
-            <span className="deco" style={{ top: "38%", insetInlineStart: "-2%", animation: "spinSlow 14s linear infinite" }}><Art name="star" size={44} /></span>
-            <span className="deco float" style={{ top: "2%", insetInlineEnd: "30%", animationDelay: ".4s" }}><Art name="hook" size={76} /></span>
+            {/* الرسومات موزعة على حواف البطاقة بحيث تطل من حولها ولا تختفي خلفها */}
+            <span className="deco float" style={{ top: -26, insetInlineStart: "-1%", "--r": "-10deg" }}><Art name="yarn" size={78} /></span>
+            <span className="deco float" style={{ top: -30, insetInlineEnd: "10%", animationDelay: ".4s", "--r": "6deg" }}><Art name="hook" size={62} /></span>
+            <span className="deco float alt" style={{ top: "26%", insetInlineEnd: "-2%", "--r": "14deg" }}><Art name="gift" size={56} /></span>
+            <span className="deco" style={{ top: "52%", insetInlineStart: "-2%", animation: "spinSlow 14s linear infinite" }}><Art name="star" size={38} /></span>
+            <span className="deco float" style={{ bottom: -18, insetInlineStart: "8%", "--r": "8deg", animationDelay: ".8s" }}><Art name="heart" size={58} /></span>
+            <span className="deco float alt" style={{ bottom: "12%", insetInlineEnd: "-3%", "--r": "-6deg", animationDelay: "1.3s" }}><Art name="flower" size={64} /></span>
           </div>
         </div>
       </section>
