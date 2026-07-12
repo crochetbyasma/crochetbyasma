@@ -544,6 +544,8 @@ const initialTexts = {
   finaleWhats: "💬 كلمينا واتساب",
   footerTagline: "قطع يدوية مخصصة لمناسباتك — صنع في الرياض 📍 جميع الأسعار تشمل الضريبة.",
   footerHand: "من خيوطٍ صُنعت… وبالحب مُلئت ♡",
+  footerLinksTitle: "روابط سريعة",
+  footerContactTitle: "كلمينا مباشرة ♡",
   footerThanks: "♡ شكرًا لدعمك المنتجات اليدوية — كل غرزة صُنعت خصيصًا لكِ ♡",
   aboutTitle: "عن كروشيه أسماء",
   aboutIntro: "كروشيه، مطبوعات، وقطع ثلاثية الأبعاد — تُصنع بحب في الرياض، وتصل مخصصةً باسمك ومناسبتك إلى كل مدن المملكة.",
@@ -2564,6 +2566,8 @@ const TEXT_GROUPS = [
     fields: [
       ["footerTagline", "الوصف المختصر", true],
       ["footerHand", "العبارة بخط اليد"],
+      ["footerLinksTitle", "عنوان عمود الروابط"],
+      ["footerContactTitle", "عنوان عمود التواصل"],
       ["footerThanks", "شريط الشكر", true],
     ],
   },
@@ -2861,7 +2865,7 @@ export default function App() {
               <p className="small hand" style={{ margin: "8px 0 0", color: "var(--peach)" }}>{texts.footerHand}</p>
             </div>
             <div>
-              <b style={{ color: "var(--text)" }}>روابط سريعة</b>
+              <b style={{ color: "var(--text)" }}>{texts.footerLinksTitle}</b>
               <div className="small" style={{ marginTop: 6, display: "flex", flexDirection: "column", gap: 4 }}>
                 <a style={{ cursor: "pointer" }} onClick={() => go({ page: "track" })}>تتبع الطلب</a>
                 <a style={{ cursor: "pointer" }} onClick={() => go({ page: "about" })}>عن المتجر والسياسات</a>
@@ -2869,9 +2873,10 @@ export default function App() {
               </div>
             </div>
             <div>
-              <b style={{ color: "var(--text)" }}>تواصلي معنا</b>
-              <div className="small" style={{ marginTop: 6 }}>
-                💬 واتساب: {settings.whatsapp}<br />📷 إنستغرام: @{settings.instagram}
+              <b style={{ color: "var(--text)" }}>{texts.footerContactTitle}</b>
+              <div className="small" style={{ marginTop: 6, display: "flex", flexDirection: "column", gap: 4 }}>
+                <a href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noreferrer">💬 واتساب: {settings.whatsapp}</a>
+                <a href={`https://instagram.com/${settings.instagram}`} target="_blank" rel="noreferrer">📷 إنستغرام: @{settings.instagram}</a>
               </div>
             </div>
           </div>
