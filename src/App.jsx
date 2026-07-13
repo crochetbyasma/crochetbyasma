@@ -35,7 +35,7 @@ const CSS = `
   --white:#FFFFFF;
 
   --text:#3F4A49;
-  --muted:#697674;
+  --muted:#5D6C6A;
   --faint:rgba(63,74,73,.45);
   --border:#E7DDD2;
   --border-strong:rgba(92,148,144,.38);
@@ -102,8 +102,8 @@ h1,h2,h3{color:var(--heading)}
 .btn.primary:hover{filter:brightness(.94);transform:translateY(-2px);box-shadow:var(--shadow-lift)}
 .btn.accent{background:var(--peach-dark);color:var(--ink);border-color:var(--peach-dark);box-shadow:0 6px 18px rgba(232,168,130,.38)}
 .btn.accent:hover{filter:brightness(.96);transform:translateY(-2px);box-shadow:0 14px 30px rgba(232,168,130,.45)}
-.btn.ghost{background:transparent;border-color:transparent;color:var(--teal-dark)}
-.btn.ghost:hover{background:rgba(143,183,179,.14);transform:none;box-shadow:none}
+.btn.ghost{background:rgba(255,255,255,.72);border-color:var(--border-strong);color:var(--teal-deep)}
+.btn.ghost:hover{background:var(--white);transform:translateY(-2px);box-shadow:var(--shadow-soft)}
 .btn.danger{background:rgba(26,26,26,.05);color:var(--muted);border-color:rgba(26,26,26,.14)}
 .btn.danger:hover{background:rgba(26,26,26,.09);transform:none;box-shadow:none}
 .btn.sm{padding:8px 15px;font-size:12.5px}
@@ -131,8 +131,8 @@ h1,h2,h3{color:var(--heading)}
 .section-head .link{background:none;border:none;color:var(--teal-dark);cursor:pointer;font-size:13px;font-weight:700;text-decoration:none;border-bottom:2px solid var(--peach);padding-bottom:1px}
 .eyebrow{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--peach-dark);margin-bottom:8px}
 .muted{color:var(--muted)}
-.small{font-size:12.5px}
-.price{font-weight:800;color:var(--teal-deep)}
+.small{font-size:13.5px;line-height:1.85}
+.price{font-weight:800;color:var(--teal-deep);font-size:15.5px}
 
 /* ---------- Placeholders ---------- */
 .ph{background:linear-gradient(135deg,var(--mint),var(--teal-light));display:flex;align-items:center;justify-content:center;color:var(--teal-dark);font-size:12px;font-weight:600;border-radius:var(--radius) var(--radius) 0 0}
@@ -273,6 +273,18 @@ textarea.input{resize:vertical;min-height:80px}
 .hero-card{position:relative;z-index:5;max-width:340px;margin:0 auto;transform:rotate(-2.5deg);cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
 .hero-card:hover{transform:rotate(-2.5deg) translateY(-4px);box-shadow:var(--shadow-lift)!important}
 .hero-card b{font-size:15px}
+
+/* ---------- كيف نعمل: ثلاث خطوات ---------- */
+.steps3{display:grid;gap:12px;margin-top:20px}
+@media(min-width:760px){.steps3{grid-template-columns:repeat(3,1fr);gap:16px}}
+.step3{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:24px 18px;text-align:center;box-shadow:var(--shadow-soft)}
+.step3 .num{display:inline-flex;width:42px;height:42px;align-items:center;justify-content:center;border-radius:50%;background:var(--teal-light);color:var(--teal-deep);font-weight:800;font-size:16px;margin-bottom:10px}
+.step3 b{display:block;font-size:16.5px;color:var(--heading)}
+.step3 p{margin:6px 0 0;font-size:13.5px;color:var(--muted);line-height:1.8}
+
+/* ---------- خيارات الطلب الخاص المصغرة ---------- */
+.opt-mini{display:inline-flex;flex-direction:column;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);border-radius:var(--radius);padding:14px 22px;color:var(--cream-soft);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:transform .22s var(--ease),background .22s}
+.opt-mini:hover{background:rgba(255,255,255,.18);transform:translateY(-3px)}
 .deco{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 10px 16px rgba(92,148,144,.28))}
 .scroll-cue{display:inline-flex;flex-direction:column;align-items:center;gap:2px;color:var(--teal-dark);font-size:11.5px;font-weight:700;margin-top:26px;animation:cueBounce 1.8s ease-in-out infinite}
 
@@ -319,6 +331,7 @@ textarea.input{resize:vertical;min-height:80px}
 
 /* ---------- BOLD v2: Awwwards energy ---------- */
 .display.mega{font-size:clamp(42px,9.5vw,88px);line-height:1.12;}
+.display.hero-title{font-size:clamp(34px,7.5vw,60px);line-height:1.22}
 /* ---------- لمسات الهوية: مغرز · أختام · قلوب ---------- */
 .badge{border:1.2px dashed rgba(92,148,144,.45)}
 .badge.peach{border-color:rgba(232,168,130,.65)}
@@ -508,25 +521,29 @@ const initialTexts = {
   announce: "🚚 شحن مجاني للطلبات فوق {المبلغ} · توصيل لجميع مدن المملكة 🤍",
   heroBadge1: "♡ صُنع بحب — كل غرزة لأجلك",
   heroBadge2: "📍 صنع في الرياض",
-  heroTitle: "هنا ~الخيوط * تتحوّل حكايات",
-  heroSub: "كون صغير من الكروشيه والمطبوعات والقطع ثلاثية الأبعاد — كل قطعة تُصنع *خصيصًا لكِ* باسمك ومناسبتك.",
-  heroCtaShop: "تسوقي الكون",
-  heroCtaCustom: "ابدئي طلبًا مخصصًا",
+  heroTitle: "هدايا كروشيه ~مخصصة * لكل مناسباتك",
+  heroSub: "كل قطعة تُصنع يدويًا في الرياض وتُخصص *باسمك ومناسبتك* — دمى، هدايا، وتوزيعات.",
+  heroCtaShop: "تصفحي المنتجات",
+  heroCtaCustom: "ابدئي طلبك الخاص",
   heroScrollCue: "اسحبي لتدخلي العالم",
   marquee1: "كروشيه · مطبوعات · طباعة ثلاثية الأبعاد · توزيعات · هدايا بالاسم · صنع في الرياض",
   catsEyebrow: "✳ الكون الصغير",
   catsTitle: "اختاري *عالمك*",
   featEyebrow: "♡ قطع تُقتنى",
   featTitle: "مختارات هذا الموسم",
-  featLink: "عرض الكل",
-  customEyebrow: "✎ الطلب المخصص",
-  customTitle: "احكي لنا ~فكرتك~،|ونحن *نحيكها* واقعًا",
-  customSub: "اسم مولود، عبارة تخرج، توزيعات بمئة قطعة، أو صورة من خيالك — أرسليها لنا وشاهديها تتحول قطعةً تلمسينها.",
-  customCta: "ابدئي الحكاية ←",
-  builderEyebrow: "☞ جربي بنفسك",
-  builderTitle: "ابني هديتك في ثوانٍ",
-  builderSub: "اختاري المناسبة وشاهدي كيف تتغير الفكرة — ثم أكملي التفاصيل في معالج الطلب.",
-  marquee2: "من أعمالنا · ٤٠٠+ طلب منفذ · لكل مدن المملكة · قطع لا تتكرر",
+  featLink: "عرض كل المنتجات",
+  customEyebrow: "✎ الطلب الخاص",
+  customTitle: "عندك فكرة؟|خلينا نحوّلها إلى ~قطعة كروشيه~",
+  customSub: "احكي لنا فكرتك — دمية باسم طفلك، هدية لمناسبة غالية، أو توزيعات بلمستك — ونصنعها لك قطعة تلمسينها.",
+  customCta: "ابدئي تصميم طلبك ←",
+  howEyebrow: "✿ كيف نعمل؟",
+  howTitle: "ثلاث خطوات وتوصلك قطعتك",
+  how1: "اختاري الفكرة",
+  how1d: "من منتجاتنا الجاهزة أو من خيالك",
+  how2: "نجهز التصميم",
+  how2d: "ونرسله لك للموافقة قبل التنفيذ",
+  how3: "نصنعها ونوصلها لك",
+  how3d: "بتغليف أنيق إلى باب بيتك",
   galEyebrow: "❋ من الأرشيف",
   galTitle: "معرضنا *الصغير*",
   galLink: "كل الأعمال ←",
@@ -546,7 +563,6 @@ const initialTexts = {
   footerHand: "من خيوطٍ صُنعت… وبالحب مُلئت ♡",
   footerLinksTitle: "روابط سريعة",
   footerContactTitle: "تواصلي معنا",
-  footerThanks: "♡ شكرًا لدعمك المنتجات اليدوية — كل غرزة صُنعت خصيصًا لكِ ♡",
   aboutTitle: "عن كروشيه أسماء",
   aboutIntro: "كروشيه، مطبوعات، وقطع ثلاثية الأبعاد — تُصنع بحب في الرياض، وتصل مخصصةً باسمك ومناسبتك إلى كل مدن المملكة.",
   aboutCard1Title: "🧶 يدوي 100%",
@@ -557,6 +573,21 @@ const initialTexts = {
   aboutCard3Text: "لأنها مصنوعة يدويًا، قد تختلف كل قطعة قليلًا عن غيرها — وهذا سر جمالها.",
   contactTitle: "تواصلي معنا",
   contactIntro: "أسرع طريقة للرد هي واتساب — عادة نرد خلال ساعات العمل من السبت إلى الخميس.",
+};
+
+/* ترحيل النصوص: إذا كان النص المحفوظ في متصفح الزائرة يطابق صياغة افتراضية قديمة،
+   يُستبدل بالصياغة الافتراضية الجديدة. التعديلات اليدوية من لوحة التحكم لا تُمس. */
+const TEXT_MIGRATIONS = {
+  heroTitle: ["هنا ~الخيوط * تتحوّل حكايات"],
+  heroSub: ["كون صغير من الكروشيه والمطبوعات والقطع ثلاثية الأبعاد — كل قطعة تُصنع *خصيصًا لكِ* باسمك ومناسبتك."],
+  heroCtaShop: ["تسوقي الكون"],
+  heroCtaCustom: ["ابدئي طلبًا مخصصًا"],
+  featLink: ["عرض الكل"],
+  customEyebrow: ["✎ الطلب المخصص"],
+  customTitle: ["احكي لنا ~فكرتك~،|ونحن *نحيكها* واقعًا"],
+  customSub: ["اسم مولود، عبارة تخرج، توزيعات بمئة قطعة، أو صورة من خيالك — أرسليها لنا وشاهديها تتحول قطعةً تلمسينها."],
+  customCta: ["ابدئي الحكاية ←"],
+  footerContactTitle: ["كلمينا مباشرة ♡"],
 };
 
 const initialNotifications = [
@@ -950,7 +981,6 @@ function ProductCard({ p, categories, favorites, toggleFav, go, addToCart }) {
   const cat = categories.find((c) => c.id === p.categoryId);
   return (
     <div className="card hoverable tilt-card" style={{ display: "flex", flexDirection: "column", position: "relative" }}>
-      <span className="deco" style={{ top: -10, insetInlineEnd: -6, animation: "spinSlow 16s linear infinite" }}><StarSpark size={22} /></span>
       <div style={{ position: "relative" }}>
         <Pic srcs={p.images} label="صورة المنتج" />
         <button
@@ -965,15 +995,14 @@ function ProductCard({ p, categories, favorites, toggleFav, go, addToCart }) {
           {p.type === "جاهز" ? (p.availability === "متوفر" ? "متوفر" : "غير متوفر") : "يُنفذ حسب الطلب"}
         </span>
       </div>
-      <div className="pad" style={{ display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
-        <span className="small muted">{cat?.name} · {p.sub}</span>
-        <b style={{ cursor: "pointer" }} onClick={() => go({ page: "product", id: p.id })}>{p.name}</b>
+      <div className="pad" style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, padding: "16px 16px 18px" }}>
+        <span className="small muted" style={{ fontSize: 12.5 }}>{cat?.name} · {p.sub}</span>
+        <b style={{ cursor: "pointer", fontSize: 15.5, lineHeight: 1.6 }} onClick={() => go({ page: "product", id: p.id })}>{p.name}</b>
         <span className="price">{SAR(p.price)}</span>
-        <div className="row stitch-top" style={{ marginTop: "auto" }}>
-          <button className="btn primary sm" style={{ flex: 1 }} onClick={() => go({ page: "product", id: p.id })}>
+        <div className="row" style={{ marginTop: "auto", paddingTop: 6 }}>
+          <button className="btn primary sm" style={{ flex: 1, padding: "10px 15px", fontSize: 13.5 }} onClick={() => go({ page: "product", id: p.id })}>
             {p.type === "مخصص" ? "خصصي واطلبي" : "أضيفي للسلة"}
           </button>
-          <button className="btn sm" onClick={() => go({ page: "wizard", prefill: { refProduct: p.id } })}>طلب مشابه</button>
         </div>
       </div>
     </div>
@@ -986,8 +1015,6 @@ function ProductCard({ p, categories, favorites, toggleFav, go, addToCart }) {
 function Home({ products, categories, gallery, settings, texts: t, go }) {
   const featured = products.filter((p) => p.featured && !p.hidden).slice(0, 4);
   const heroProduct = featured[0] || products.find((p) => !p.hidden) || products[0];
-  const [previewOcc, setPreviewOcc] = useState("مولود");
-  const occIcon = { "مولود": <Art name="heart" size={84} style={{ margin: "0 auto" }} />, "تخرج": <Art name="star" size={78} style={{ margin: "0 auto" }} />, "زواج": <Art name="flower" size={84} style={{ margin: "0 auto" }} />, "رمضان": <Art name="gift" size={68} style={{ margin: "0 auto" }} />, "عيد": <Art name="tag" size={78} style={{ margin: "0 auto" }} /> };
   return (
     <div>
       {/* 1 — Hero: مسرح فني */}
@@ -995,17 +1022,16 @@ function Home({ products, categories, gallery, settings, texts: t, go }) {
         <div className="container grid md-2" style={{ alignItems: "center" }}>
           <div>
             <div className="row" style={{ gap: 8 }}>
-              <span className="badge peach sticker" style={{ fontSize: 12.5 }}>{t.heroBadge1}</span>
-              <span className="badge">{t.heroBadge2}</span>
+              <span className="badge peach sticker" style={{ fontSize: 13 }}>{t.heroBadge1}</span>
             </div>
             <div style={{ height: 14 }} />
-            <KineticTitle className="display mega" text={t.heroTitle} />
+            <KineticTitle className="display hero-title" text={t.heroTitle} />
             <p className="muted" style={{ maxWidth: 460, margin: "16px 0 24px", fontSize: 16 }}>
               <Rich text={t.heroSub} hl="doodle" />
             </p>
             <div className="row">
-              <Magnetic><button className="btn primary" onClick={() => go({ page: "shop" })}>{t.heroCtaShop} <span className="arr">←</span></button></Magnetic>
-              <Magnetic><button className="btn ghost" onClick={() => go({ page: "wizard" })}>{t.heroCtaCustom} <span className="arr">←</span></button></Magnetic>
+              <Magnetic><button className="btn primary" onClick={() => go({ page: "wizard" })}>{t.heroCtaCustom} <span className="arr">←</span></button></Magnetic>
+              <Magnetic><button className="btn ghost" onClick={() => go({ page: "shop" })}>{t.heroCtaShop}</button></Magnetic>
             </div>
             <div className="scroll-cue">{t.heroScrollCue}<span>⌄</span></div>
           </div>
@@ -1032,13 +1058,10 @@ function Home({ products, categories, gallery, settings, texts: t, go }) {
                 </div>
               </div>
             )}
-            {/* الرسومات موزعة على حواف البطاقة بحيث تطل من حولها ولا تختفي خلفها */}
+            {/* ثلاث رسومات فقط تطل من حواف البطاقة — بدون زحمة */}
             <span className="deco float" style={{ top: -26, insetInlineStart: "-1%", "--r": "-10deg" }}><Art name="yarn" size={78} /></span>
-            <span className="deco float" style={{ top: -30, insetInlineEnd: "10%", animationDelay: ".4s", "--r": "6deg" }}><Art name="hook" size={62} /></span>
-            <span className="deco float alt" style={{ top: "26%", insetInlineEnd: "-2%", "--r": "14deg" }}><Art name="gift" size={56} /></span>
-            <span className="deco" style={{ top: "52%", insetInlineStart: "-2%", animation: "spinSlow 14s linear infinite" }}><Art name="star" size={38} /></span>
-            <span className="deco float" style={{ bottom: -18, insetInlineStart: "8%", "--r": "8deg", animationDelay: ".8s" }}><Art name="heart" size={58} /></span>
-            <span className="deco float alt" style={{ bottom: "12%", insetInlineEnd: "-3%", "--r": "-6deg", animationDelay: "1.3s" }}><Art name="flower" size={64} /></span>
+            <span className="deco float alt" style={{ bottom: "14%", insetInlineEnd: "-3%", "--r": "-6deg", animationDelay: ".7s" }}><Art name="flower" size={62} /></span>
+            <span className="deco float" style={{ bottom: -16, insetInlineStart: "6%", "--r": "8deg", animationDelay: "1.2s" }}><Art name="heart" size={54} /></span>
           </div>
         </div>
       </section>
@@ -1054,7 +1077,6 @@ function Home({ products, categories, gallery, settings, texts: t, go }) {
 
       {/* 3 — كون التصنيفات */}
       <div className="band band-white" style={{ position: "relative", overflow: "hidden" }}>
-        <DoodleField variant={0} />
         <div className="container">
           <Reveal><span className="eyebrow">{t.catsEyebrow}</span>
             <h2 className="xl"><Rich text={t.catsTitle} /></h2></Reveal>
@@ -1084,7 +1106,6 @@ function Home({ products, categories, gallery, settings, texts: t, go }) {
           <Reveal><span className="eyebrow">{t.featEyebrow}</span>
             <div className="section-head" style={{ marginTop: 0 }}>
               <h2 style={{ fontSize: 26 }}>{t.featTitle}</h2>
-              <button className="link" onClick={() => go({ page: "shop" })}>{t.featLink}</button>
             </div></Reveal>
           <div className="grid cols-2 md-4">
             {featured.map((p, i) => (
@@ -1093,65 +1114,58 @@ function Home({ products, categories, gallery, settings, texts: t, go }) {
               </Reveal>
             ))}
           </div>
+          <div style={{ textAlign: "center", marginTop: 22 }}>
+            <button className="btn ghost" onClick={() => go({ page: "shop" })}>{t.featLink} <span className="arr">←</span></button>
+          </div>
         </div>
       </div>
 
-      <div className="band-white" style={{ paddingBottom: 26 }}><div className="container"><div className="hearts-divider">♡ ♡ ♡</div></div></div>
-
-      {/* 5 — قصة الطلب المخصص: كتلة تيل بنمط قلوب */}
+      {/* 5 — الطلب الخاص: أهم ميزة في الموقع */}
       <div className="band band-ink" style={{ position: "relative", overflow: "hidden" }}>
         <span className="deco float" style={{ top: 20, insetInlineEnd: "6%", opacity: .95 }}><Art name="yarn" size={82} glow /></span>
-        <span className="deco float alt" style={{ bottom: 16, insetInlineStart: "5%" }}><Art name="heart" size={64} glow /></span>
         <div className="container" style={{ textAlign: "center", position: "relative" }}>
           <Reveal>
             <span className="eyebrow">{t.customEyebrow}</span>
             <h2 className="display mega" style={{ fontSize: "clamp(30px,6.5vw,58px)" }}>
               <Rich text={t.customTitle} />
             </h2>
-            <p className="muted" style={{ maxWidth: 520, margin: "14px auto 24px" }}>
+            <p style={{ maxWidth: 520, margin: "14px auto 22px", color: "rgba(248,241,232,.85)", fontSize: 15.5, lineHeight: 1.9 }}>
               {t.customSub}
             </p>
+            <div className="row" style={{ justifyContent: "center", gap: 12, margin: "0 0 26px" }}>
+              {[["دمية", "yarn"], ["هدية", "gift"], ["مناسبة", "flower"]].map(([label, icon]) => (
+                <button key={label} className="opt-mini" onClick={() => go({ page: "wizard" })}>
+                  <Art name={icon} size={46} /><span>{label}</span>
+                </button>
+              ))}
+            </div>
             <Magnetic><button className="btn accent" onClick={() => go({ page: "wizard" })}>{t.customCta}</button></Magnetic>
           </Reveal>
         </div>
       </div>
 
-      {/* 6 — ابنِ هديتك: معاينة تفاعلية */}
-      <div className="band band-cream" style={{ position: "relative", overflow: "hidden" }}>
-        <DoodleField variant={1} />
-        <div className="container grid md-2" style={{ alignItems: "center" }}>
+      {/* 6 — كيف نعمل: ثلاث خطوات واضحة */}
+      <div className="band band-cream">
+        <div className="container" style={{ textAlign: "center" }}>
           <Reveal>
-            <span className="eyebrow">{t.builderEyebrow}</span>
-            <h2 style={{ margin: "0 0 8px", fontSize: 26 }}>{t.builderTitle}</h2>
-            <p className="muted small" style={{ maxWidth: 420 }}>{t.builderSub}</p>
-            <div className="chips" style={{ margin: "14px 0" }}>
-              {["مولود", "تخرج", "زواج", "رمضان", "عيد"].map((o) => (
-                <button key={o} className={`chip ${previewOcc === o ? "active" : ""}`} onClick={() => setPreviewOcc(o)}>{o}</button>
-              ))}
-            </div>
-            <button className="btn primary" onClick={() => go({ page: "wizard", prefill: { occasion: previewOcc } })}>أكملي طلب {previewOcc} ←</button>
+            <span className="eyebrow">{t.howEyebrow}</span>
+            <h2 style={{ margin: "0 0 4px", fontSize: 26 }}>{t.howTitle}</h2>
           </Reveal>
-          <Reveal delay={120}>
-            <div className="card glass pad" style={{ textAlign: "center", padding: 28, transform: "rotate(1.4deg)" }}>
-              <div className="float" style={{ display: "inline-block" }}>{occIcon[previewOcc]}</div>
-              <h3 style={{ margin: "10px 0 4px" }}>هدية {previewOcc} مخصصة</h3>
-              <p className="small muted" style={{ margin: 0 }}>بالاسم · بالتغليف · بموعد تسليمك</p>
-              <div className="stitch-top row" style={{ justifyContent: "center" }}>
-                <span className="badge">كروشيه</span><span className="badge">مطبوعات</span><span className="badge peach">3D</span>
-              </div>
-            </div>
-          </Reveal>
+          <div className="steps3">
+            {[[t.how1, t.how1d], [t.how2, t.how2d], [t.how3, t.how3d]].map(([title, desc], i) => (
+              <Reveal key={i} delay={i * 100}>
+                <div className="step3">
+                  <span className="num">{i + 1}</span>
+                  <b>{title}</b>
+                  <p>{desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* 7 — شريط معاكس + معرض بتمرير أفقي */}
-      <div className="marquee rev light" aria-hidden="true">
-        <div className="marquee-track">
-          {[0, 1].map((k) => (
-            <span key={k}><MarqueeText text={t.marquee2} icons={["❋"]} /></span>
-          ))}
-        </div>
-      </div>
+      {/* 7 — معرض بتمرير أفقي */}
       <div className="band band-teal">
         <div className="container">
           <Reveal>
@@ -1178,7 +1192,6 @@ function Home({ products, categories, gallery, settings, texts: t, go }) {
 
       {/* 8 — آراء بشخصية: بطاقات ملاحظات مائلة */}
       <div className="band band-white" style={{ position: "relative", overflow: "hidden" }}>
-        <DoodleField variant={2} />
         <div className="container">
           <Reveal><span className="eyebrow">{t.revEyebrow}</span>
             <div className="section-head" style={{ marginTop: 0 }}><h2 style={{ fontSize: 26 }}>{t.revTitle}</h2></div></Reveal>
@@ -1198,8 +1211,6 @@ function Home({ products, categories, gallery, settings, texts: t, go }) {
           </div>
         </div>
       </div>
-
-      <div className="band-white" style={{ padding: "0 0 30px" }}><div className="container"><div className="hearts-divider">♡ ♡ ♡</div></div></div>
 
       {/* 9 — ختام جريء */}
       <div className="band band-grad" style={{ position: "relative", overflow: "hidden", textAlign: "center" }}>
@@ -2503,11 +2514,10 @@ const TEXT_GROUPS = [
     ],
   },
   {
-    title: "🎞 الشريطان المتحركان",
+    title: "🎞 الشريط المتحرك",
     hint: "افصلي بين العبارات بعلامة · وستوضع الأيقونات بينها تلقائيًا.",
     fields: [
-      ["marquee1", "الشريط الأول (بعد الواجهة)", true],
-      ["marquee2", "الشريط الثاني (قبل المعرض)", true],
+      ["marquee1", "الشريط المتحرك (بعد الواجهة)", true],
     ],
   },
   {
@@ -2528,8 +2538,13 @@ const TEXT_GROUPS = [
     ],
   },
   {
-    title: "🎁 قسم ابني هديتك",
-    fields: [["builderEyebrow", "السطر الصغير"], ["builderTitle", "العنوان"], ["builderSub", "الوصف", true]],
+    title: "🪡 قسم كيف نعمل",
+    fields: [
+      ["howEyebrow", "السطر الصغير"], ["howTitle", "العنوان"],
+      ["how1", "الخطوة 1"], ["how1d", "وصف الخطوة 1"],
+      ["how2", "الخطوة 2"], ["how2d", "وصف الخطوة 2"],
+      ["how3", "الخطوة 3"], ["how3d", "وصف الخطوة 3"],
+    ],
   },
   {
     title: "🖼 قسم المعرض",
@@ -2568,7 +2583,6 @@ const TEXT_GROUPS = [
       ["footerHand", "العبارة بخط اليد"],
       ["footerLinksTitle", "عنوان عمود الروابط"],
       ["footerContactTitle", "عنوان عمود التواصل"],
-      ["footerThanks", "شريط الشكر", true],
     ],
   },
 ];
@@ -2698,8 +2712,8 @@ export default function App() {
         }
         if (d.texts) {
           const t = { ...initialTexts, ...d.texts };
-          /* ترحيل: العنوان القديم الافتراضي لعمود التواصل قبل توحيده */
-          if (t.footerContactTitle === "كلمينا مباشرة ♡") t.footerContactTitle = "تواصلي معنا";
+          for (const [k, olds] of Object.entries(TEXT_MIGRATIONS))
+            if (olds.includes(t[k])) t[k] = initialTexts[k];
           setTexts(t);
         }
         d.nextNum && setNextNum(d.nextNum);
@@ -2884,10 +2898,7 @@ export default function App() {
               </div>
             </div>
           </div>
-          <div className="thanks-strip" style={{ marginTop: 20, background: "rgba(255,255,255,.12)", color: "#fff" }}>
-            {texts.footerThanks}
-          </div>
-          <p className="small" style={{ textAlign: "center", marginTop: 14 }}>© {new Date().getFullYear()} {settings.storeName} — جميع الحقوق محفوظة</p>
+          <p className="small" style={{ textAlign: "center", marginTop: 22, paddingTop: 16, borderTop: "1px solid rgba(255,255,255,.18)" }}>© {new Date().getFullYear()} {settings.storeName} — جميع الحقوق محفوظة</p>
         </div>
       </footer>
     </div>
