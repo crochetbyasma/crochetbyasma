@@ -67,7 +67,7 @@ h1,h2,h3{color:var(--heading)}
 .band+.band{border-top:1px solid rgba(255,255,255,.6)}
 
 /* ---------- عناصر التحويل: إعلان · ثقة · واتساب عائم ---------- */
-.announce{background:var(--teal-deep);color:var(--cream-soft);text-align:center;font-size:12.5px;font-weight:600;padding:8px 14px;letter-spacing:.2px}
+.announce{background:var(--teal-deep);color:var(--cream-soft);text-align:center;font-size:13.5px;font-weight:600;padding:9px 14px;letter-spacing:.2px}
 .announce b{color:var(--peach)}
 .trust-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px;padding-top:12px;border-top:2px dashed var(--border)}
 .trust-strip span{display:flex;align-items:center;gap:7px;font-size:11.8px;color:var(--muted);line-height:1.5}
@@ -86,7 +86,17 @@ h1,h2,h3{color:var(--heading)}
 .logo small{display:block;font-weight:500;color:var(--teal-dark);font-size:11px}
 .nav{display:flex;gap:2px;overflow-x:auto;padding:0 0 11px;-webkit-overflow-scrolling:touch}
 .nav::-webkit-scrollbar{display:none}
-.nav button{border:none;background:none;padding:8px 14px;border-radius:999px;cursor:pointer;font-size:13.5px;font-weight:600;white-space:nowrap;color:var(--muted);transition:all .22s var(--ease)}
+.nav button{border:none;background:none;padding:8px 14px;border-radius:999px;cursor:pointer;font-size:14px;font-weight:600;white-space:nowrap;color:var(--muted);transition:all .22s var(--ease)}
+/* قائمة الجوال: روابط كبيرة مريحة بدل الشريط المزدحم */
+.menu-btn{display:none}
+.mobile-menu{display:flex;flex-direction:column;gap:2px;padding:4px 0 14px}
+.mobile-menu button{border:none;background:none;text-align:start;padding:13px 16px;border-radius:14px;font-size:15.5px;font-weight:700;color:var(--heading-soft);cursor:pointer;transition:background .2s}
+.mobile-menu button:hover{background:var(--mint)}
+.mobile-menu button.active{background:var(--mint);color:var(--teal-deep)}
+@media(max-width:759px){
+  .menu-btn{display:inline-flex}
+  .nav{display:none}
+}
 .nav button:hover{background:var(--mint);color:var(--teal-dark)}
 .nav button.active{background:var(--teal-dark);color:var(--white);box-shadow:0 4px 12px rgba(92,148,144,.35)}
 .spacer{flex:1}
@@ -106,7 +116,7 @@ h1,h2,h3{color:var(--heading)}
 .btn.ghost:hover{background:var(--white);transform:translateY(-2px);box-shadow:var(--shadow-soft)}
 .btn.danger{background:rgba(26,26,26,.05);color:var(--muted);border-color:rgba(26,26,26,.14)}
 .btn.danger:hover{background:rgba(26,26,26,.09);transform:none;box-shadow:none}
-.btn.sm{padding:8px 15px;font-size:12.5px}
+.btn.sm{padding:9px 16px;font-size:13.5px}
 .btn.block{width:100%}
 .btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;filter:none}
 .btn:active{transform:translateY(0) scale(.98)}
@@ -128,19 +138,19 @@ h1,h2,h3{color:var(--heading)}
 .section{margin:30px 0}
 .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:18px}
 .section-head h2{margin:0;font-size:22px;font-weight:800;}
-.section-head .link{background:none;border:none;color:var(--teal-dark);cursor:pointer;font-size:13px;font-weight:700;text-decoration:none;border-bottom:2px solid var(--peach);padding-bottom:1px}
+.section-head .link{background:none;border:none;color:var(--teal-dark);cursor:pointer;font-size:14px;font-weight:700;text-decoration:none;border-bottom:2px solid var(--peach);padding-bottom:1px}
 .eyebrow{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--peach-dark);margin-bottom:8px}
 .muted{color:var(--muted)}
 .small{font-size:13.5px;line-height:1.85}
 .price{font-weight:800;color:var(--teal-deep);font-size:15.5px}
 
 /* ---------- Placeholders ---------- */
-.ph{background:linear-gradient(135deg,var(--mint),var(--teal-light));display:flex;align-items:center;justify-content:center;color:var(--teal-dark);font-size:12px;font-weight:600;border-radius:var(--radius) var(--radius) 0 0}
+.ph{background:linear-gradient(135deg,var(--mint),var(--teal-light));display:flex;align-items:center;justify-content:center;color:var(--teal-dark);font-size:13.5px;font-weight:600;border-radius:var(--radius) var(--radius) 0 0}
 .ph.square{aspect-ratio:1/1}
 .ph.wide{aspect-ratio:16/9}
 
 /* ---------- Badges & Chips ---------- */
-.badge{display:inline-flex;align-items:center;background:var(--teal-light);color:var(--teal-dark);border:none;border-radius:999px;padding:3px 11px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;background:var(--teal-light);color:var(--teal-dark);border:none;border-radius:999px;padding:4px 12px;font-size:12.5px;font-weight:700;white-space:nowrap}
 .badge.peach{background:var(--peach);color:var(--ink)}
 .badge.solid{background:var(--teal-dark);color:var(--white)}
 .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
@@ -209,7 +219,8 @@ textarea.input{resize:vertical;min-height:80px}
 .faq summary{cursor:pointer;font-weight:700;color:var(--teal-dark)}
 
 /* ---------- Footer ---------- */
-.footer{margin-top:0;background:linear-gradient(165deg,var(--teal-deep),var(--teal-dark));border-top:none;padding:36px 0 26px;color:rgba(255,255,255,.82);font-size:13.5px}
+.footer{margin-top:0;background:linear-gradient(165deg,var(--teal-deep),var(--teal-dark));border-top:none;padding:34px 0 24px;color:rgba(255,255,255,.88);font-size:14px;line-height:1.9}
+.footer .small{font-size:14px}
 .footer b{color:var(--white)!important}
 .footer a{color:var(--white);text-decoration:none;border-bottom:1px solid rgba(246,199,173,.6)}
 .footer .badge{background:rgba(255,255,255,.14);color:var(--white)}
@@ -563,6 +574,7 @@ const initialTexts = {
   footerHand: "من خيوطٍ صُنعت… وبالحب مُلئت ♡",
   footerLinksTitle: "روابط سريعة",
   footerContactTitle: "تواصلي معنا",
+  footerPolicy: "↩️ المنتجات الرقمية والمخصصة لا تُسترجع بعد الشراء — كل التفاصيل في صفحة السياسات.",
   aboutTitle: "عن كروشيه أسماء",
   aboutIntro: "كروشيه، مطبوعات، وقطع ثلاثية الأبعاد — تُصنع بحب في الرياض، وتصل مخصصةً باسمك ومناسبتك إلى كل مدن المملكة.",
   aboutCard1Title: "🧶 يدوي 100%",
@@ -810,6 +822,19 @@ function Rich({ text = "", hl = "mark" }) {
   ));
 }
 
+/* مشهد يدوي فاخر داخل بطاقة الهيرو عندما لا تتوفر صورة حقيقية للمنتج */
+const HeroMock = () => (
+  <div style={{ position: "relative", aspectRatio: "1/1", borderRadius: "var(--radius) var(--radius) 0 0", overflow: "hidden", background: "radial-gradient(circle at 70% 25%,rgba(246,199,173,.4) 0%,transparent 45%),linear-gradient(150deg,var(--mint) 0%,var(--cream-soft) 55%,var(--peach-light) 100%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <span style={{ position: "absolute", inset: 10, border: "1.6px dashed rgba(92,148,144,.35)", borderRadius: 14, pointerEvents: "none" }} />
+    <span style={{ position: "absolute", top: 20, insetInlineStart: 20, opacity: .9 }}><Art name="flower" size={58} /></span>
+    <span style={{ position: "absolute", top: 22, insetInlineEnd: 24, opacity: .8 }}><StarSpark size={26} /></span>
+    <span style={{ position: "absolute", bottom: 18, insetInlineEnd: 20, opacity: .95 }}><Art name="heart" size={54} /></span>
+    <span style={{ position: "absolute", bottom: 24, insetInlineStart: 24, opacity: .85 }}><Art name="hook" size={62} /></span>
+    <span className="float" style={{ display: "inline-block", filter: "drop-shadow(0 14px 22px rgba(92,148,144,.3))" }}><Art name="yarn" size={170} /></span>
+    <span className="float alt" style={{ position: "absolute", bottom: "24%", insetInlineStart: "28%", filter: "drop-shadow(0 10px 16px rgba(232,168,130,.35))" }}><Art name="gift" size={92} /></span>
+  </div>
+);
+
 /* شريط متحرك: العبارات مفصولة بـ · وتُوضع بينها أيقونات بالتناوب */
 const MarqueeText = ({ text = "", icons = ["✿", "★"] }) => (
   <>
@@ -996,11 +1021,11 @@ function ProductCard({ p, categories, favorites, toggleFav, go, addToCart }) {
         </span>
       </div>
       <div className="pad" style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, padding: "16px 16px 18px" }}>
-        <span className="small muted" style={{ fontSize: 12.5 }}>{cat?.name} · {p.sub}</span>
-        <b style={{ cursor: "pointer", fontSize: 15.5, lineHeight: 1.6 }} onClick={() => go({ page: "product", id: p.id })}>{p.name}</b>
-        <span className="price">{SAR(p.price)}</span>
+        <span className="small muted" style={{ fontSize: 13 }}>{cat?.name} · {p.sub}</span>
+        <b style={{ cursor: "pointer", fontSize: 16, lineHeight: 1.6 }} onClick={() => go({ page: "product", id: p.id })}>{p.name}</b>
+        <span className="price" style={{ fontSize: 16.5 }}>{SAR(p.price)}</span>
         <div className="row" style={{ marginTop: "auto", paddingTop: 6 }}>
-          <button className="btn primary sm" style={{ flex: 1, padding: "10px 15px", fontSize: 13.5 }} onClick={() => go({ page: "product", id: p.id })}>
+          <button className="btn primary sm" style={{ flex: 1, padding: "11px 16px", fontSize: 14 }} onClick={() => go({ page: "product", id: p.id })}>
             {p.type === "مخصص" ? "خصصي واطلبي" : "أضيفي للسلة"}
           </button>
         </div>
@@ -1050,7 +1075,9 @@ function Home({ products, categories, gallery, settings, texts: t, go }) {
                 onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go({ page: "product", id: heroProduct.id }); } }}
                 aria-label={`القطعة المميزة هذا الأسبوع: ${heroProduct.name}`}>
                 <span style={{ position: "absolute", top: -44, insetInlineEnd: -34, zIndex: 4 }}><SpinBadge size={96} /></span>
-                <Pic src={heroProduct.image} srcs={heroProduct.images} label={heroProduct.name} />
+                {(heroProduct.image || (heroProduct.images && heroProduct.images[0]))
+                  ? <Pic src={heroProduct.image} srcs={heroProduct.images} label={heroProduct.name} />
+                  : <HeroMock />}
                 <div className="pad" style={{ padding: 14 }}>
                   <span className="small muted">القطعة المميزة هذا الأسبوع</span>
                   <b style={{ display: "block", marginTop: 2 }}>{heroProduct.name}</b>
@@ -1215,10 +1242,9 @@ function Home({ products, categories, gallery, settings, texts: t, go }) {
       {/* 9 — ختام جريء */}
       <div className="band band-grad" style={{ position: "relative", overflow: "hidden", textAlign: "center" }}>
         <span className="deco float" style={{ top: 12, insetInlineStart: "8%" }}><StarSpark color="#F6EFE6" /></span>
-        <span className="deco float alt" style={{ bottom: 14, insetInlineEnd: "10%" }}><StarSpark size={20} color="#F6C7AD" /></span>
         <div className="container">
           <Reveal>
-            <h2 className="display mega" style={{ fontSize: "clamp(32px,7vw,64px)" }}><Rich text={t.finaleTitle} /></h2>
+            <h2 className="display mega" style={{ fontSize: "clamp(28px,6vw,54px)" }}><Rich text={t.finaleTitle} /></h2>
             <div className="row" style={{ justifyContent: "center", marginTop: 22 }}>
               <Magnetic><button className="btn accent" onClick={() => go({ page: "wizard" })}>{t.finaleCta}</button></Magnetic>
               <a className="btn" style={{ background: "rgba(255,255,255,.15)", color: "var(--white)", borderColor: "rgba(255,255,255,.5)" }} href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noreferrer">{t.finaleWhats}</a>
@@ -2583,6 +2609,7 @@ const TEXT_GROUPS = [
       ["footerHand", "العبارة بخط اليد"],
       ["footerLinksTitle", "عنوان عمود الروابط"],
       ["footerContactTitle", "عنوان عمود التواصل"],
+      ["footerPolicy", "سطر سياسة الاسترجاع", true],
     ],
   },
 ];
@@ -2744,6 +2771,7 @@ export default function App() {
 
   /* إخفاء الهيدر عند النزول وإظهاره عند الصعود */
   const [hideHeader, setHideHeader] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     let lastY = window.scrollY, ticking = false;
     const onScroll = () => {
@@ -2830,12 +2858,13 @@ export default function App() {
         </div>
         <div className="container">
           <div className="header-row">
-            <div className="logo" style={{ cursor: "pointer" }} onClick={() => go({ page: "home" })}>
+            <button className="icon-btn menu-btn" onClick={() => setMenuOpen((o) => !o)} aria-label="القائمة" aria-expanded={menuOpen}>{menuOpen ? "✕" : "☰"}</button>
+            <div className="logo" style={{ cursor: "pointer" }} onClick={() => { setMenuOpen(false); go({ page: "home" }); }}>
               <Logo />
             </div>
             <span className="spacer" />
-            <button className="icon-btn" onClick={() => go({ page: "account" })} aria-label="حسابي">👤</button>
-            <button className="icon-btn" onClick={() => go({ page: "cart" })} aria-label="السلة">
+            <button className="icon-btn" onClick={() => { setMenuOpen(false); go({ page: "account" }); }} aria-label="حسابي">👤</button>
+            <button className="icon-btn" onClick={() => { setMenuOpen(false); go({ page: "cart" }); }} aria-label="السلة">
               🛒{cart.length > 0 && <span key={cart.length} className="count">{cart.length}</span>}
             </button>
           </div>
@@ -2844,6 +2873,13 @@ export default function App() {
               <button key={k} className={route.page === k ? "active" : ""} onClick={() => go({ page: k })}>{l}</button>
             ))}
           </nav>
+          {menuOpen && (
+            <nav className="mobile-menu">
+              {NAV.map(([k, l]) => (
+                <button key={k} className={route.page === k ? "active" : ""} onClick={() => { setMenuOpen(false); go({ page: k }); }}>{l}</button>
+              ))}
+            </nav>
+          )}
         </div>
       </header>
 
@@ -2898,7 +2934,8 @@ export default function App() {
               </div>
             </div>
           </div>
-          <p className="small" style={{ textAlign: "center", marginTop: 22, paddingTop: 16, borderTop: "1px solid rgba(255,255,255,.18)" }}>© {new Date().getFullYear()} {settings.storeName} — جميع الحقوق محفوظة</p>
+          <p className="small" style={{ textAlign: "center", marginTop: 22, paddingTop: 16, borderTop: "1px solid rgba(255,255,255,.18)", cursor: "pointer" }} onClick={() => go({ page: "about" })}>{texts.footerPolicy}</p>
+          <p className="small" style={{ textAlign: "center", marginTop: 8, opacity: .85 }}>© {new Date().getFullYear()} {settings.storeName} — جميع الحقوق محفوظة</p>
         </div>
       </footer>
     </div>
