@@ -545,7 +545,7 @@ const initialTexts = {
   footerTagline: "قطع يدوية مخصصة لمناسباتك — صنع في الرياض 📍 جميع الأسعار تشمل الضريبة.",
   footerHand: "من خيوطٍ صُنعت… وبالحب مُلئت ♡",
   footerLinksTitle: "روابط سريعة",
-  footerContactTitle: "كلمينا مباشرة ♡",
+  footerContactTitle: "تواصلي معنا",
   footerThanks: "♡ شكرًا لدعمك المنتجات اليدوية — كل غرزة صُنعت خصيصًا لكِ ♡",
   aboutTitle: "عن كروشيه أسماء",
   aboutIntro: "كروشيه، مطبوعات، وقطع ثلاثية الأبعاد — تُصنع بحب في الرياض، وتصل مخصصةً باسمك ومناسبتك إلى كل مدن المملكة.",
@@ -2696,7 +2696,12 @@ export default function App() {
           if (!s.cancelPolicy.includes("الرقمي")) s.cancelPolicy += " المنتج الرقمي لا يمكن استرجاعه ولا استبداله بعد الشراء.";
           setSettings(s);
         }
-        d.texts && setTexts({ ...initialTexts, ...d.texts });
+        if (d.texts) {
+          const t = { ...initialTexts, ...d.texts };
+          /* ترحيل: العنوان القديم الافتراضي لعمود التواصل قبل توحيده */
+          if (t.footerContactTitle === "كلمينا مباشرة ♡") t.footerContactTitle = "تواصلي معنا";
+          setTexts(t);
+        }
         d.nextNum && setNextNum(d.nextNum);
       }
       setLoaded(true);
@@ -2869,7 +2874,6 @@ export default function App() {
               <div className="small" style={{ marginTop: 6, display: "flex", flexDirection: "column", gap: 4 }}>
                 <a style={{ cursor: "pointer" }} onClick={() => go({ page: "track" })}>تتبع الطلب</a>
                 <a style={{ cursor: "pointer" }} onClick={() => go({ page: "about" })}>عن المتجر والسياسات</a>
-                <a style={{ cursor: "pointer" }} onClick={() => go({ page: "contact" })}>تواصلي معنا</a>
               </div>
             </div>
             <div>
