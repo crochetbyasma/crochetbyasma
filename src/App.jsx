@@ -49,7 +49,7 @@ const CSS = `
 }
 *{box-sizing:border-box}
 html,body,#root{margin:0;padding:0}
-.app{direction:rtl;font-family:'Alexandria',system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--cream);color:var(--text);min-height:100vh;line-height:1.75}
+.app{direction:rtl;font-family:'Alexandria',system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--cream);color:var(--text);min-height:100vh;line-height:1.75;overflow-x:clip}
 a{color:var(--teal-dark)}
 button{font-family:inherit}
 ::selection{background:var(--teal-light)}
@@ -478,27 +478,27 @@ const initialCoupons = [
 
 const initialOrders = [
   {
-    id: "ORD-1043", createdAt: "2026-06-28", customer: { name: "نورة العتيبي", phone: "0501234567", city: "الرياض", address: "حي النرجس" },
+    id: "CBA-1043", createdAt: "2026-06-28", customer: { name: "نورة العتيبي", phone: "0501234567", city: "الرياض", address: "حي النرجس" },
     items: [{ productId: "p4", name: "توزيعات مواليد كروشيه", qty: 24, price: 18, custom: { name: "سلطان", occasion: "مولود", wrap: "تغليف هدية" } }],
     kind: "custom", status: "in_progress", rush: false, deliveryDate: "2026-07-10", payment: "تحويل بنكي", coupon: null,
     notes: "اللون حسب المرجع المرفق", refImages: 2, adminNotes: "تم تأكيد اللون مع العميلة",
     history: [{ status: "new", at: "2026-06-28" }, { status: "review", at: "2026-06-28" }, { status: "in_progress", at: "2026-06-30" }],
   },
   {
-    id: "ORD-1042", createdAt: "2026-06-27", customer: { name: "هند القحطاني", phone: "0559876543", city: "جدة", address: "حي السلامة" },
+    id: "CBA-1042", createdAt: "2026-06-27", customer: { name: "هند القحطاني", phone: "0559876543", city: "جدة", address: "حي السلامة" },
     items: [{ productId: "p5", name: "بطاقات تهنئة عيد (10 قطع)", qty: 2, price: 45, custom: {} }, { productId: "p7", name: "ستيكرات أذكار", qty: 3, price: 22, custom: {} }],
     kind: "ready", status: "shipped", rush: false, deliveryDate: null, payment: "مدى", coupon: "WELCOME10",
     notes: "", refImages: 0, adminNotes: "", history: [{ status: "new", at: "2026-06-27" }, { status: "ready_to_ship", at: "2026-06-29" }, { status: "shipped", at: "2026-06-30" }],
   },
   {
-    id: "ORD-1041", createdAt: "2026-06-25", customer: { name: "سارة الدوسري", phone: "0533334444", city: "الدمام", address: "حي الشاطئ" },
+    id: "CBA-1041", createdAt: "2026-06-25", customer: { name: "سارة الدوسري", phone: "0533334444", city: "الدمام", address: "حي الشاطئ" },
     items: [{ productId: "p8", name: "اسم ديكور ثلاثي الأبعاد", qty: 1, price: 85, custom: { name: "لمار", occasion: "مولود" } }],
     kind: "custom", status: "awaiting_approval", rush: true, deliveryDate: "2026-07-05", payment: "بانتظار الدفع", coupon: null,
     notes: "أفضّل خطًا مقروءًا وبسيطًا", refImages: 1, adminNotes: "أُرسل التصميم للموافقة عبر واتساب",
     history: [{ status: "new", at: "2026-06-25" }, { status: "designing", at: "2026-06-26" }, { status: "awaiting_approval", at: "2026-06-29" }],
   },
   {
-    id: "ORD-1040", createdAt: "2026-06-20", customer: { name: "ريم الشمري", phone: "0561112222", city: "الرياض", address: "حي الياسمين" },
+    id: "CBA-1040", createdAt: "2026-06-20", customer: { name: "ريم الشمري", phone: "0561112222", city: "الرياض", address: "حي الياسمين" },
     items: [{ productId: "p1", name: "دمية أرنب كروشيه", qty: 1, price: 95, custom: { name: "جود", wrap: "تغليف هدية" } }],
     kind: "ready", status: "delivered", rush: false, deliveryDate: null, payment: "Apple Pay", coupon: null,
     notes: "", refImages: 0, adminNotes: "", history: [{ status: "new", at: "2026-06-20" }, { status: "shipped", at: "2026-06-22" }, { status: "delivered", at: "2026-06-24" }],
@@ -603,7 +603,7 @@ const TEXT_MIGRATIONS = {
 };
 
 const initialNotifications = [
-  { id: "n1", at: "2026-07-01", text: "طلب جديد ORD-1043 بانتظار المراجعة", read: false },
+  { id: "n1", at: "2026-07-01", text: "طلب جديد CBA-1043 بانتظار المراجعة", read: false },
   { id: "n2", at: "2026-07-01", text: "سلة متروكة: عميلة أضافت 3 منتجات ولم تُكمل الدفع", read: false },
   { id: "n3", at: "2026-06-30", text: "المخزون منخفض: شنطة كروشيه يدوية (3 قطع)", read: true },
 ];
@@ -1560,7 +1560,7 @@ function Contact({ settings, texts: t }) {
                 <Field label="رقم الجوال"><input className="input" placeholder="05xxxxxxxx" /></Field>
               </div>
               {topic === "متابعة طلب" || topic === "مشكلة في طلب" ? (
-                <Field label="رقم الطلب"><input className="input" placeholder="ORD-xxxx" /></Field>
+                <Field label="رقم الطلب"><input className="input" placeholder="CBA-xxxx" /></Field>
               ) : null}
               <Field label="رسالتك"><textarea className="input" /></Field>
               <button className="btn primary block" onClick={() => setSent(true)}>إرسال الرسالة</button>
@@ -1966,7 +1966,7 @@ function Track({ orders, initId }) {
         <div className="card pad">
           <h2 style={{ marginTop: 0 }}>تتبع الطلب</h2>
           <div className="row">
-            <input className="input" style={{ flex: 1 }} placeholder="أدخلي رقم الطلب، مثال: ORD-1043" value={q} onChange={(e) => setQ(e.target.value)} />
+            <input className="input" style={{ flex: 1 }} placeholder="أدخلي رقم الطلب، مثال: CBA-1042" value={q} onChange={(e) => setQ(e.target.value)} />
             <button className="btn primary" onClick={search}>تتبع</button>
           </div>
           {notFound && <p className="small muted">لم نجد طلبًا بهذا الرقم. تأكدي من الرقم أو تواصلي معنا عبر واتساب.</p>}
@@ -1999,6 +1999,44 @@ function Track({ orders, initId }) {
 }
 
 /* ============================ Store: Account ============================ */
+function AccountAddresses({ user, setUser }) {
+  const [adding, setAdding] = useState(false);
+  const [addr, setAddr] = useState({ label: "", city: "", details: "" });
+  const save = () => {
+    setUser({ ...user, addresses: [...user.addresses, addr] });
+    setAddr({ label: "", city: "", details: "" });
+    setAdding(false);
+  };
+  return (
+    <div className="card pad">
+      <b>عناويني المحفوظة</b>
+      {user.addresses.map((a, i) => (
+        <div key={i} className="notice between" style={{ marginTop: 8 }}>
+          <span>📍 {a.label} — {a.city} — {a.details}</span>
+          {user.addresses.length > 1 && (
+            <button className="btn sm danger" onClick={() => setUser({ ...user, addresses: user.addresses.filter((_, j) => j !== i) })}>حذف</button>
+          )}
+        </div>
+      ))}
+      {adding ? (
+        <div style={{ marginTop: 10 }}>
+          <div className="grid cols-2">
+            <Field label="اسم العنوان"><input className="input" placeholder="مثال: العمل" value={addr.label} onChange={(e) => setAddr({ ...addr, label: e.target.value })} /></Field>
+            <Field label="المدينة"><input className="input" value={addr.city} onChange={(e) => setAddr({ ...addr, city: e.target.value })} /></Field>
+          </div>
+          <Field label="الحي / التفاصيل"><input className="input" value={addr.details} onChange={(e) => setAddr({ ...addr, details: e.target.value })} /></Field>
+          <div className="row">
+            <button className="btn primary sm" disabled={!addr.label || !addr.city} onClick={save}>حفظ العنوان</button>
+            <button className="btn sm" onClick={() => setAdding(false)}>إلغاء</button>
+          </div>
+        </div>
+      ) : (
+        <button className="btn sm block" style={{ marginTop: 10 }} onClick={() => setAdding(true)}>+ إضافة عنوان جديد</button>
+      )}
+    </div>
+  );
+}
+
 function Account({ user, setUser, orders, favorites, products, go }) {
   const [name, setName] = useState(""); const [phone, setPhone] = useState("");
   if (!user) {
@@ -2055,13 +2093,7 @@ function Account({ user, setUser, orders, favorites, products, go }) {
                 </div>
               ))}
             </div>
-            <div className="card pad">
-              <b>عناويني المحفوظة</b>
-              {user.addresses.map((a, i) => (
-                <div key={i} className="notice" style={{ marginTop: 8 }}>📍 {a.label} — {a.city} — {a.details}</div>
-              ))}
-              <button className="btn sm block" style={{ marginTop: 10 }}>+ إضافة عنوان جديد</button>
-            </div>
+            <AccountAddresses user={user} setUser={setUser} />
             <div className="card pad" style={{ marginTop: 14 }}>
               <b>نقاط الولاء</b>
               <p className="small muted" style={{ margin: "6px 0 0" }}>🎁 قريبًا: اجمعي نقاطًا مع كل طلب واستبدليها بخصومات.</p>
@@ -2728,10 +2760,11 @@ export default function App() {
         d.products && setProducts(d.products);
         d.categories && setCategories(d.categories);
         d.gallery && setGallery(d.gallery);
-        d.orders && setOrders(d.orders);
+        /* ترحيل: توحيد صيغة أرقام الطلبات القديمة ORD- إلى CBA- */
+        d.orders && setOrders(d.orders.map((o) => ({ ...o, id: o.id.replace(/^ORD-/, "CBA-") })));
         d.coupons && setCoupons(d.coupons.some((c) => c.code === "SHUKRAN10") ? d.coupons : [...d.coupons, { id: "c3", code: "SHUKRAN10", type: "percent", value: 10, minTotal: 0, active: true, uses: 0 }]);
         d.reviews && setReviews(d.reviews);
-        d.notifications && setNotifications(d.notifications);
+        d.notifications && setNotifications(d.notifications.map((n) => ({ ...n, text: n.text.replace(/\bORD-/g, "CBA-") })));
         if (d.settings) {
           const s = { ...initialSettings, ...d.settings };
           if (!s.cancelPolicy.includes("الرقمي")) s.cancelPolicy += " المنتج الرقمي لا يمكن استرجاعه ولا استبداله بعد الشراء.";
@@ -2815,7 +2848,7 @@ export default function App() {
   const addReview = (r) => setReviews((rs) => [r, ...rs]);
 
   const createOrder = (o) => {
-    const id = `ORD-${nextNum}`;
+    const id = `CBA-${nextNum}`;
     setNextNum(nextNum + 1);
     const order = { id, createdAt: today(), status: "new", adminNotes: "", history: [{ status: "new", at: today() }], ...o };
     setOrders((os) => [order, ...os]);
