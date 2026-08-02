@@ -2042,23 +2042,58 @@ function AccountAddresses({ user, setUser }) {
 
 function Account({ user, setUser, orders, favorites, products, go }) {
   const [name, setName] = useState(""); const [phone, setPhone] = useState("");
-  if (!user) {
+  const [mode, setMode] = useState("customer");   /* customer | owner */
+
+  /* المالكة مسجلة الدخول: صفحة الحساب تعرض بطاقة مختصرة تقودها للوحة التحكم */
+  if (isOwner(user)) {
     return (
       <div className="container">
-        <div className="section card pad" style={{ maxWidth: 440, margin: "40px auto" }}>
-          <h2 style={{ marginTop: 0 }}>حسابي</h2>
-          <p className="small muted">تسجيل الدخول اختياري — يساعدك على متابعة طلباتك ومفضلتك وعناوينك.</p>
-          <Field label="الاسم"><input className="input" value={name} onChange={(e) => setName(e.target.value)} /></Field>
-          <Field label="رقم الجوال" hint="سنرسل رمز تحقق عبر الرسائل (في النسخة النهائية)"><input className="input" placeholder="05xxxxxxxx" value={phone} onChange={(e) => setPhone(e.target.value)} /></Field>
-          <button className="btn primary block" disabled={!name || phone.length < 9} onClick={() => setUser({ name, phone, addresses: [{ label: "المنزل", city: "الرياض", details: "—" }] })}>تسجيل الدخول</button>
-          <div className="stitch-top" style={{ textAlign: "center" }}>
-            <span className="small muted">عندك طلب سابق؟</span>{" "}
-            <button className="btn ghost sm" onClick={() => go({ page: "track" })}>تتبعيه برقم الطلب ←</button>
+        <div className="section card pad" style={{ maxWidth: 440, margin: "40px auto", textAlign: "center" }}>
+          <div className="float" style={{ display: "inline-block" }}><Art name="heart" size={62} /></div>
+          <h2 style={{ margin: "8px 0 4px" }}>أهلًا، {user.name} 👋</h2>
+          <p className="small muted">أنتِ مسجلة الدخول كصاحبة المتجر.</p>
+          <div className="row" style={{ justifyContent: "center", marginTop: 12 }}>
+            <button className="btn primary" onClick={() => go({ page: "admin" })}>فتح لوحة التحكم ←</button>
+            <button className="btn sm" onClick={() => { setUser(GUEST); go({ page: "home" }); }}>تسجيل الخروج</button>
           </div>
         </div>
       </div>
     );
   }
+
+  /* زائرة غير مسجلة: خيارا الدخول (عميلة / مالكة المتجر) */
+  if (isGuest(user)) {
+    return (
+      <div className="container">
+        <div className="section card pad" style={{ maxWidth: 440, margin: "40px auto" }}>
+          <h2 style={{ marginTop: 0 }}>حسابي</h2>
+          <div className="chips" style={{ margin: "10px 0 16px" }}>
+            <button className={`chip ${mode === "customer" ? "active" : ""}`} onClick={() => setMode("customer")}>دخول العميلة</button>
+            <button className={`chip ${mode === "owner" ? "active" : ""}`} onClick={() => setMode("owner")}>دخول مالكة المتجر</button>
+          </div>
+
+          {mode === "customer" ? (
+            <>
+              <p className="small muted">تسجيل الدخول اختياري — يساعدك على متابعة طلباتك ومفضلتك وعناوينك.</p>
+              <Field label="الاسم"><input className="input" value={name} onChange={(e) => setName(e.target.value)} /></Field>
+              <Field label="رقم الجوال" hint="سنرسل رمز تحقق عبر الرسائل (في النسخة النهائية)"><input className="input" placeholder="05xxxxxxxx" value={phone} onChange={(e) => setPhone(e.target.value)} /></Field>
+              <button className="btn primary block" disabled={!name || phone.length < 9} onClick={() => setUser(buildCustomer(name, phone))}>تسجيل الدخول</button>
+              <div className="stitch-top" style={{ textAlign: "center" }}>
+                <span className="small muted">عندك طلب سابق؟</span>{" "}
+                <button className="btn ghost sm" onClick={() => go({ page: "track" })}>تتبعيه برقم الطلب ←</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="small muted">مخصص لصاحبة المتجر — للدخول إلى لوحة التحكم وإدارة الطلبات والمنتجات.</p>
+              <OwnerLoginForm onSuccess={(u) => { setUser(u); go({ page: "admin" }); }} />
+            </>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   const myOrders = orders.filter((o) => o.customer.phone === user.phone);
   const favs = products.filter((p) => favorites.includes(p.id));
   return (
@@ -2066,7 +2101,7 @@ function Account({ user, setUser, orders, favorites, products, go }) {
       <div className="section">
         <div className="between">
           <h2 style={{ margin: 0 }}>أهلًا، {user.name} 👋</h2>
-          <button className="btn sm" onClick={() => setUser(null)}>تسجيل الخروج</button>
+          <button className="btn sm" onClick={() => { setUser(GUEST); go({ page: "home" }); }}>تسجيل الخروج</button>
         </div>
         <div className="grid md-2" style={{ marginTop: 14 }}>
           <div className="card pad">
@@ -2109,58 +2144,130 @@ function Account({ user, setUser, orders, favorites, products, go }) {
 }
 
 /* ============================ Admin ============================ */
-/* ============================ حماية لوحة التحكم ============================
-   ⚠️ حل مؤقت للنسخة التجريبية فقط: كلمة المرور مكتوبة في كود الواجهة، وأي شخص
-   يفتح ملف الجافاسكربت في المتصفح يستطيع قراءتها. الغرض منها منع الزائر العادي
-   من الدخول، وليست حماية حقيقية. تُستبدل لاحقًا بتسجيل دخول عبر خادم.
-   ------------------------------------------------------------------------ */
-const ADMIN_PASSWORD = "admin123";
-const ADMIN_SESSION_KEY = "cba-admin-session";
+/* ==================== نظام الأدوار والجلسات (Frontend مؤقت) ====================
+   الأدوار: owner (مالكة المتجر) · customer (عميلة) · guest (زائر غير مسجل)
 
-const adminSessionGet = () => {
-  try { return sessionStorage.getItem(ADMIN_SESSION_KEY) === "1"; } catch { return false; }
-};
-const adminSessionSet = (on) => {
-  try { on ? sessionStorage.setItem(ADMIN_SESSION_KEY, "1") : sessionStorage.removeItem(ADMIN_SESSION_KEY); } catch {}
+   ⚠️ حل مؤقت للنسخة التجريبية فقط: بيانات دخول المالكة مكتوبة في كود الواجهة،
+   وأي شخص يفتح ملف الجافاسكربت في المتصفح يستطيع قراءتها. الغرض منها منع الزائر
+   العادي من الوصول للوحة التحكم، وليست حماية حقيقية — تُستبدل لاحقًا بتسجيل
+   دخول عبر خادم يتحقق من الصلاحيات في الـ Backend وليس في المتصفح.
+   --------------------------------------------------------------------------- */
+const OWNER_CREDENTIALS = {
+  email: "owner@crochetbyasma.com",
+  password: "admin123",
+  name: "أسماء",
 };
 
-function AdminLogin({ onSuccess, go }) {
+/* جلسة المالكة في sessionStorage (تنتهي بإغلاق التبويب — أأمن للوحة التحكم)
+   وجلسة العميلة في localStorage (تبقى محفوظة على الجهاز للراحة).
+   كلتاهما تصمد أمام تحديث الصفحة. */
+const SESSION_KEY = "cba-session-v1";
+const GUEST = { role: "guest", loggedIn: false };
+
+/* ---- helpers الصلاحيات ---- */
+const isOwner = (u) => !!u && u.role === "owner" && u.loggedIn === true;
+const isCustomer = (u) => !!u && u.role === "customer" && u.loggedIn === true;
+const isGuest = (u) => !isOwner(u) && !isCustomer(u);
+/* بوابة لوحة التحكم: ترجع true للمالكة فقط — تُستخدم لإخفاء الزر وحماية الصفحة */
+const requireOwner = (u) => isOwner(u);
+
+const sessionStore = (role) => (role === "owner" ? sessionStorage : localStorage);
+
+const sessionLoad = () => {
+  for (const store of [sessionStorage, localStorage]) {
+    try {
+      const raw = store.getItem(SESSION_KEY);
+      if (!raw) continue;
+      const u = JSON.parse(raw);
+      if (isOwner(u) || isCustomer(u)) return u;
+      store.removeItem(SESSION_KEY);           /* جلسة تالفة أو دور غير معروف */
+    } catch { /* تخزين غير متاح أو JSON تالف — تجاهل */ }
+  }
+  return GUEST;
+};
+
+const sessionSave = (u) => {
+  sessionClear();
+  if (isOwner(u) || isCustomer(u)) {
+    try { sessionStore(u.role).setItem(SESSION_KEY, JSON.stringify(u)); } catch {}
+  }
+};
+
+const sessionClear = () => {
+  try { sessionStorage.removeItem(SESSION_KEY); } catch {}
+  try { localStorage.removeItem(SESSION_KEY); } catch {}
+};
+
+/* يتحقق من بيانات المالكة ويبني كائن الجلسة، أو يرجع null عند الخطأ */
+const authOwner = (email, password) =>
+  email.trim().toLowerCase() === OWNER_CREDENTIALS.email && password === OWNER_CREDENTIALS.password
+    ? { role: "owner", loggedIn: true, name: OWNER_CREDENTIALS.name, email: OWNER_CREDENTIALS.email }
+    : null;
+
+const buildCustomer = (name, phone) => ({
+  role: "customer", loggedIn: true, name: name.trim(), phone: phone.trim(),
+  addresses: [{ label: "المنزل", city: "الرياض", details: "—" }],
+});
+
+/* نموذج دخول المالكة — يُستخدم في صفحة الحساب وكحارس للوحة التحكم */
+function OwnerLoginForm({ onSuccess, autoFocus = false }) {
+  const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const [error, setError] = useState("");
   const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
 
   const submit = (e) => {
     e?.preventDefault();
-    if (pass === ADMIN_PASSWORD) { adminSessionSet(true); setError(""); onSuccess(); }
-    else { setError("كلمة المرور غير صحيحة. حاولي مرة أخرى."); setPass(""); }
+    const u = authOwner(email, pass);
+    if (u) { setError(""); onSuccess(u); }
+    else { setError("البريد الإلكتروني أو كلمة المرور غير صحيحة. حاولي مرة أخرى."); setPass(""); }
   };
 
   return (
+    <form onSubmit={submit}>
+      <Field label="البريد الإلكتروني">
+        <input
+          className="input" type="email" dir="ltr" style={{ textAlign: "right" }}
+          value={email} onChange={(e) => { setEmail(e.target.value); setError(""); }}
+          placeholder="owner@crochetbyasma.com" autoFocus={autoFocus} autoComplete="username"
+        />
+      </Field>
+      <Field label="كلمة المرور">
+        <div className="row" style={{ flexWrap: "nowrap" }}>
+          <input
+            className="input" style={{ flex: 1 }} type={show ? "text" : "password"}
+            value={pass} onChange={(e) => { setPass(e.target.value); setError(""); }}
+            placeholder="••••••••" autoComplete="current-password"
+          />
+          <button type="button" className="btn sm" onClick={() => setShow((s) => !s)} aria-label={show ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}>
+            {show ? "إخفاء" : "إظهار"}
+          </button>
+        </div>
+      </Field>
+      {error && <div className="notice" style={{ borderColor: "var(--peach-dark)", color: "var(--heading)" }} role="alert">⚠️ {error}</div>}
+      <button className="btn primary block" type="submit" disabled={!email || !pass} style={{ marginTop: 6 }}>دخول لوحة التحكم</button>
+    </form>
+  );
+}
+
+/* حارس لوحة التحكم: يظهر لأي زائر أو عميلة تحاول الوصول للوحة */
+function AdminGate({ user, onSuccess, go }) {
+  return (
     <div className="container">
-      <form className="section card pad" style={{ maxWidth: 420, margin: "48px auto" }} onSubmit={submit}>
+      <div className="section card pad" style={{ maxWidth: 430, margin: "48px auto" }}>
         <div style={{ textAlign: "center" }}>
           <div className="float" style={{ display: "inline-block" }}><Art name="yarn" size={64} /></div>
           <h2 style={{ margin: "8px 0 4px" }}>لوحة التحكم</h2>
-          <p className="small muted" style={{ marginTop: 0 }}>هذه الصفحة مخصصة لصاحبة المتجر — أدخلي كلمة المرور للمتابعة.</p>
+          <p className="small muted" style={{ marginTop: 0 }}>هذه الصفحة مخصصة لصاحبة المتجر — سجّلي الدخول للمتابعة.</p>
         </div>
-        <Field label="كلمة المرور">
-          <div className="row" style={{ flexWrap: "nowrap" }}>
-            <input
-              className="input" style={{ flex: 1 }} type={show ? "text" : "password"}
-              value={pass} onChange={(e) => { setPass(e.target.value); setError(""); }}
-              placeholder="••••••••" autoFocus autoComplete="current-password"
-            />
-            <button type="button" className="btn sm" onClick={() => setShow((s) => !s)} aria-label={show ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}>
-              {show ? "إخفاء" : "إظهار"}
-            </button>
-          </div>
-        </Field>
-        {error && <div className="notice" style={{ borderColor: "var(--peach-dark)", color: "var(--heading)" }} role="alert">⚠️ {error}</div>}
-        <button className="btn primary block" type="submit" disabled={!pass} style={{ marginTop: 6 }}>دخول</button>
+        {isCustomer(user) && (
+          <div className="notice">أنتِ مسجلة دخول كعميلة باسم <b>{user.name}</b> — لوحة التحكم متاحة لصاحبة المتجر فقط.</div>
+        )}
+        <OwnerLoginForm onSuccess={onSuccess} autoFocus />
         <div className="stitch-top" style={{ textAlign: "center" }}>
           <button type="button" className="btn ghost sm" onClick={() => go({ page: "home" })}>العودة للموقع ←</button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
@@ -2808,7 +2915,9 @@ export default function App() {
   const [texts, setTexts] = useState(initialTexts);
   const [cart, setCart] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [user, setUser] = useState(null);
+  /* المستخدم الحالي: guest افتراضيًا، ويُستعاد من الجلسة المحفوظة عند فتح الموقع */
+  const [user, setUserState] = useState(sessionLoad);
+  const setUser = (u) => { const next = u || GUEST; sessionSave(next); setUserState(next); };
   const [nextNum, setNextNum] = useState(1044);
   const [loaded, setLoaded] = useState(false);
 
@@ -2865,9 +2974,7 @@ export default function App() {
   /* إخفاء الهيدر عند النزول وإظهاره عند الصعود */
   const [hideHeader, setHideHeader] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  /* دخول لوحة التحكم — يبقى فعّالًا داخل الجلسة الواحدة فقط */
-  const [adminAuthed, setAdminAuthed] = useState(adminSessionGet);
-  const adminLogout = () => { adminSessionSet(false); setAdminAuthed(false); go({ page: "home" }); };
+  const logout = () => { setUser(GUEST); setMenuOpen(false); go({ page: "home" }); };
   useEffect(() => {
     let lastY = window.scrollY, ticking = false;
     const onScroll = () => {
@@ -2919,8 +3026,10 @@ export default function App() {
     return id;
   };
 
+  /* زر لوحة التحكم يظهر للمالكة فقط */
   const NAV = [
-    ["home", "الرئيسية"], ["shop", "المتجر"], ["wizard", "طلب مخصص"], ["gallery", "معرض الأعمال"], ["admin", "لوحة التحكم"],
+    ["home", "الرئيسية"], ["shop", "المتجر"], ["wizard", "طلب مخصص"], ["gallery", "معرض الأعمال"],
+    ...(requireOwner(user) ? [["admin", "لوحة التحكم"]] : []),
   ];
 
   if (!loaded) {
@@ -2990,8 +3099,9 @@ export default function App() {
         {route.page === "cart" && <CartPage cart={cart} setCart={setCart} coupons={coupons} settings={settings} go={go} createOrder={createOrder} />}
         {route.page === "track" && <Track orders={orders} initId={route.orderId} />}
         {route.page === "account" && <Account user={user} setUser={setUser} orders={orders} favorites={favorites} products={products} go={go} />}
-        {route.page === "admin" && !adminAuthed && <AdminLogin onSuccess={() => setAdminAuthed(true)} go={go} />}
-        {route.page === "admin" && adminAuthed && (
+        {/* حماية لوحة التحكم: أي غير مالكة تُحوَّل إلى شاشة دخول المالكة */}
+        {route.page === "admin" && !requireOwner(user) && <AdminGate user={user} onSuccess={setUser} go={go} />}
+        {route.page === "admin" && requireOwner(user) && (
           <Admin
             orders={orders} setOrders={setOrders}
             products={products} setProducts={setProducts}
@@ -3002,7 +3112,7 @@ export default function App() {
             settings={settings} setSettings={setSettings}
             texts={texts} setTexts={setTexts}
             onReset={resetAll}
-            onLogout={adminLogout}
+            onLogout={logout}
           />
         )}
       </main>
