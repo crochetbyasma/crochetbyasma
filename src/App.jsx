@@ -233,6 +233,9 @@ textarea.input{resize:vertical;min-height:80px}
 .admin-nav button{border:1px solid var(--border);background:var(--white);border-radius:var(--radius-sm);padding:10px 13px;font-size:13.5px;font-weight:600;cursor:pointer;text-align:right;white-space:nowrap;color:var(--muted);transition:all .2s var(--ease)}
 .admin-nav button:hover{border-color:var(--teal);color:var(--teal-dark)}
 .admin-nav button.active{background:var(--teal-dark);color:var(--white);border-color:var(--teal-dark);box-shadow:0 4px 14px rgba(92,148,144,.3)}
+.admin-nav .admin-logout{color:var(--peach-dark);border-color:var(--peach-light)}
+.admin-nav .admin-logout:hover{background:var(--peach-light);border-color:var(--peach-dark);color:var(--heading)}
+@media(min-width:900px){.admin-nav .admin-logout{margin-top:8px}}
 .stat{padding:16px;text-align:center;background:var(--mint);border-color:transparent}
 .stat b{display:block;font-size:22px;color:var(--teal-deep)}
 .stat span{font-size:12px;color:var(--muted)}
@@ -2106,8 +2109,64 @@ function Account({ user, setUser, orders, favorites, products, go }) {
 }
 
 /* ============================ Admin ============================ */
+/* ============================ حماية لوحة التحكم ============================
+   ⚠️ حل مؤقت للنسخة التجريبية فقط: كلمة المرور مكتوبة في كود الواجهة، وأي شخص
+   يفتح ملف الجافاسكربت في المتصفح يستطيع قراءتها. الغرض منها منع الزائر العادي
+   من الدخول، وليست حماية حقيقية. تُستبدل لاحقًا بتسجيل دخول عبر خادم.
+   ------------------------------------------------------------------------ */
+const ADMIN_PASSWORD = "admin123";
+const ADMIN_SESSION_KEY = "cba-admin-session";
+
+const adminSessionGet = () => {
+  try { return sessionStorage.getItem(ADMIN_SESSION_KEY) === "1"; } catch { return false; }
+};
+const adminSessionSet = (on) => {
+  try { on ? sessionStorage.setItem(ADMIN_SESSION_KEY, "1") : sessionStorage.removeItem(ADMIN_SESSION_KEY); } catch {}
+};
+
+function AdminLogin({ onSuccess, go }) {
+  const [pass, setPass] = useState("");
+  const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
+
+  const submit = (e) => {
+    e?.preventDefault();
+    if (pass === ADMIN_PASSWORD) { adminSessionSet(true); setError(""); onSuccess(); }
+    else { setError("كلمة المرور غير صحيحة. حاولي مرة أخرى."); setPass(""); }
+  };
+
+  return (
+    <div className="container">
+      <form className="section card pad" style={{ maxWidth: 420, margin: "48px auto" }} onSubmit={submit}>
+        <div style={{ textAlign: "center" }}>
+          <div className="float" style={{ display: "inline-block" }}><Art name="yarn" size={64} /></div>
+          <h2 style={{ margin: "8px 0 4px" }}>لوحة التحكم</h2>
+          <p className="small muted" style={{ marginTop: 0 }}>هذه الصفحة مخصصة لصاحبة المتجر — أدخلي كلمة المرور للمتابعة.</p>
+        </div>
+        <Field label="كلمة المرور">
+          <div className="row" style={{ flexWrap: "nowrap" }}>
+            <input
+              className="input" style={{ flex: 1 }} type={show ? "text" : "password"}
+              value={pass} onChange={(e) => { setPass(e.target.value); setError(""); }}
+              placeholder="••••••••" autoFocus autoComplete="current-password"
+            />
+            <button type="button" className="btn sm" onClick={() => setShow((s) => !s)} aria-label={show ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}>
+              {show ? "إخفاء" : "إظهار"}
+            </button>
+          </div>
+        </Field>
+        {error && <div className="notice" style={{ borderColor: "var(--peach-dark)", color: "var(--heading)" }} role="alert">⚠️ {error}</div>}
+        <button className="btn primary block" type="submit" disabled={!pass} style={{ marginTop: 6 }}>دخول</button>
+        <div className="stitch-top" style={{ textAlign: "center" }}>
+          <button type="button" className="btn ghost sm" onClick={() => go({ page: "home" })}>العودة للموقع ←</button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 function Admin(props) {
-  const { orders, setOrders, products, setProducts, categories, setCategories, coupons, setCoupons, gallery, setGallery, notifications, setNotifications, settings, setSettings, texts, setTexts, onReset } = props;
+  const { orders, setOrders, products, setProducts, categories, setCategories, coupons, setCoupons, gallery, setGallery, notifications, setNotifications, settings, setSettings, texts, setTexts, onReset, onLogout } = props;
   const [tab, setTab] = useState("dashboard");
   const [invoice, setInvoice] = useState(null);
   const unread = notifications.filter((n) => !n.read).length;
@@ -2126,6 +2185,7 @@ function Admin(props) {
       <div className="section admin-wrap">
         <div className="admin-nav">
           {TABS.map(([k, l]) => <button key={k} className={tab === k ? "active" : ""} onClick={() => setTab(k)}>{l}</button>)}
+          <button className="admin-logout" onClick={onLogout}>🚪 تسجيل خروج</button>
         </div>
         <div>
           {tab === "dashboard" && <AdminDashboard orders={orders} products={products} setTab={setTab} />}
@@ -2805,6 +2865,9 @@ export default function App() {
   /* إخفاء الهيدر عند النزول وإظهاره عند الصعود */
   const [hideHeader, setHideHeader] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  /* دخول لوحة التحكم — يبقى فعّالًا داخل الجلسة الواحدة فقط */
+  const [adminAuthed, setAdminAuthed] = useState(adminSessionGet);
+  const adminLogout = () => { adminSessionSet(false); setAdminAuthed(false); go({ page: "home" }); };
   useEffect(() => {
     let lastY = window.scrollY, ticking = false;
     const onScroll = () => {
@@ -2927,7 +2990,8 @@ export default function App() {
         {route.page === "cart" && <CartPage cart={cart} setCart={setCart} coupons={coupons} settings={settings} go={go} createOrder={createOrder} />}
         {route.page === "track" && <Track orders={orders} initId={route.orderId} />}
         {route.page === "account" && <Account user={user} setUser={setUser} orders={orders} favorites={favorites} products={products} go={go} />}
-        {route.page === "admin" && (
+        {route.page === "admin" && !adminAuthed && <AdminLogin onSuccess={() => setAdminAuthed(true)} go={go} />}
+        {route.page === "admin" && adminAuthed && (
           <Admin
             orders={orders} setOrders={setOrders}
             products={products} setProducts={setProducts}
@@ -2938,6 +3002,7 @@ export default function App() {
             settings={settings} setSettings={setSettings}
             texts={texts} setTexts={setTexts}
             onReset={resetAll}
+            onLogout={adminLogout}
           />
         )}
       </main>
